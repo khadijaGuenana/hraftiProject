@@ -6,62 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/NomCompletTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NomCompletT"
-        tools:layout_editor_absoluteX="122dp"
-        tools:layout_editor_absoluteY="55dp" />
-
-    <TextView
-        android:id="@+id/metierTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="metier"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="101dp" />
-
-    <TextView
-        android:id="@+id/numTelTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="numTel"
-        tools:layout_editor_absoluteX="126dp"
-        tools:layout_editor_absoluteY="150dp" />
-
-    <TextView
-        android:id="@+id/descriptionTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="description"
-        tools:layout_editor_absoluteX="129dp"
-        tools:layout_editor_absoluteY="199dp" />
-
-    <TextView
-        android:id="@+id/villeTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ville"
-        tools:layout_editor_absoluteX="129dp"
-        tools:layout_editor_absoluteY="258dp" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="308dp" />
-
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
-        android:layout_width="181dp"
-        android:layout_height="64dp"
-        android:text="AutoCompleteTextView"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="364dp" />
-
     <Button
         android:id="@+id/idButton"
         android:layout_width="wrap_content"
@@ -69,4 +13,53 @@
         android:text="submit"
         tools:layout_editor_absoluteX="126dp"
         tools:layout_editor_absoluteY="468dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="47dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="375dp"
+            android:layout_height="39dp"
+            android:hint="Nom complet" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="101dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="377dp"
+            android:layout_height="match_parent"
+            android:hint="email" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="189dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="num tel" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="289dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ville" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
