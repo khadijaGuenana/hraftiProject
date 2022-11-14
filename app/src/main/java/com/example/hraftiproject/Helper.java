@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+
+
 public class Helper extends SQLiteOpenHelper {
     private static final String DB_NAME = "database";
     private static final int DB_VERSION = 1;
@@ -23,16 +25,14 @@ public class Helper extends SQLiteOpenHelper {
 
 
 
-
-
-
-    public Helper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+    public Helper(@Nullable Context context) {
         super(context,DB_NAME , null, DB_VERSION);
     }
 
 
+
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Nom_COL + " TEXT,"
@@ -42,32 +42,55 @@ public class Helper extends SQLiteOpenHelper {
                 + numTel_COL + " INTEGER,"
                 + ville_COL + " TEXT,"
                 + description_COL + " TEXT)";
-        //IMAGE IN DB
+            //IMAGE IN DB
 
-       // String query="CREATE TABLE professionnel(_id INTEGER PRIMARY KEY,nomComplet TEXT ,metier TEXT ,numTel INTEGER ,ville TEXT ,description Text)";
+            // String query="CREATE TABLE professionnel(_id INTEGER PRIMARY KEY,nomComplet TEXT ,metier TEXT ,numTel INTEGER ,ville TEXT ,description Text)";
 
-        sqLiteDatabase.execSQL(query);
+            db.execSQL(query);
+           /* String query2="INSERT INTO "+TABLE_NAME+" VALUES ('nom','email@gmail.com' ,'passwd','metier','0214578963','ville','descrrrrrrrrption' )";
+        db.execSQL(query2);*/
+
+
 
     }
-    public void addNewProfessionnel(String nomComplet,String email, String password ,String metier ,int numTel ,String ville ,String description){
+
+    public void addNewProfessionnel(professionnel p){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values=new ContentValues();
-        values.put(Nom_COL, nomComplet);
-        values.put(EMAIL_COL, email);
-        values.put(PASSWORD_COL, password);
-        values.put(Metier_COL , metier);
-        values.put(numTel_COL , numTel);
-        values.put(ville_COL, ville);
-        values.put(description_COL, description);
+        values.put(Nom_COL, p.getNomComplet());
+        values.put(EMAIL_COL, p.getEmail());
+        values.put(PASSWORD_COL, p.getPassword());
+        values.put(Metier_COL , p.getMetier());
+        values.put(numTel_COL , p.getNumTel());
+        values.put(ville_COL, p.getVille());
+        values.put(description_COL, p.getDescription());
 
         db.insert(TABLE_NAME, null, values);
+
         db.close();
     }
 
+     /*
+    public void addNewProfessionnel(String nom ,String email ,String psd ,String metier ,String  ville  ,int num ,String DESCRIPTION){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put(Nom_COL, nom);
+        values.put(EMAIL_COL, email);
+        values.put(PASSWORD_COL, psd);
+        values.put(Metier_COL , metier);
+        values.put(numTel_COL , num);
+        values.put(ville_COL, ville);
+        values.put(description_COL, DESCRIPTION);
+
+        db.insert(TABLE_NAME, null, values);
+
+        db.close();
+    }*/
+
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
-        onCreate(sqLiteDatabase);
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        onCreate(db);
     }
     public Boolean checkEmail(String email){
        SQLiteDatabase mydatabase =  this.getWritableDatabase();
