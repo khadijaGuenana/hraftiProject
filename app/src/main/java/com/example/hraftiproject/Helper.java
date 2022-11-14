@@ -2,13 +2,14 @@ package com.example.hraftiproject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
 public class Helper extends SQLiteOpenHelper {
-    private static final String DB_NAME = "hrayfiDb";
+    private static final String DB_NAME = "database";
     private static final int DB_VERSION = 1;
     private static final String TABLE_NAME = "professionnel";
     private static final String ID_COL = "id";
@@ -67,5 +68,21 @@ public class Helper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
         onCreate(sqLiteDatabase);
+    }
+    public Boolean checkEmail(String email){
+       SQLiteDatabase mydatabase =  this.getWritableDatabase();
+        Cursor cursor=mydatabase.rawQuery("select * from professionnel where email = ?",new String[]{email});
+        if (cursor.getCount()>0)
+            return true;
+        else
+            return false;
+    }
+    public Boolean checkEmailPassword(String email,String mdps){
+        SQLiteDatabase mydatabase =  this.getWritableDatabase();
+        Cursor cursor=mydatabase.rawQuery("select * from professionnel where email = ? and mdps=?",new String[]{email,mdps});
+        if (cursor.getCount()>0)
+            return true;
+        else
+            return false;
     }
 }
