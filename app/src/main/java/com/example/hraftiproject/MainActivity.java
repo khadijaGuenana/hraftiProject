@@ -13,7 +13,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // activity_inscription
+        //setContentView(R.layout.activity_inscription2); //  activity_main
+        startActivity(new Intent(this, InscriptionActivity.class));
 
 
     }
