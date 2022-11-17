@@ -43,7 +43,7 @@ public class Inscription extends AppCompatActivity {  //implements View.OnClickL
             String description= descriptionEdt.getText().toString();
 
 
-            professionnel professionnel=new professionnel(nom ,email,password,metier,ville ,numtel,description );
+        professionnel professionnel=new professionnel(nom ,email,password,metier,ville ,numtel,description );
 
             helper.addNewProfessionnel(professionnel);
 
@@ -55,6 +55,7 @@ public class Inscription extends AppCompatActivity {  //implements View.OnClickL
             metierEdt.setText("");
             villeEdt.setText("");
             descriptionEdt.setText("");
+
 
 
 

@@ -1,8 +1,8 @@
-﻿package com.example.hraftiproject;
+package com.example.hraftiproject;
+
 public class professionnel {
     String nomComplet,email, password , metier ,ville ,description;
     int numTel ,ID;
-
     public professionnel(String nomComplet, String email, String password, String metier, String ville,  int numTel, String description) {
         this.nomComplet = nomComplet;
         this.email = email;
