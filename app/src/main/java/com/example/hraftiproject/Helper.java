@@ -2,7 +2,6 @@ package com.example.hraftiproject;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -113,21 +112,5 @@ public class Helper extends SQLiteOpenHelper {
         // this method is called to check if the table exists already.
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
-    }
-    public Boolean checkEmail(String email){
-       SQLiteDatabase mydatabase =  this.getWritableDatabase();
-        Cursor cursor=mydatabase.rawQuery("select * from professionnel where email = ?",new String[]{email});
-        if (cursor.getCount()>0)
-            return true;
-        else
-            return false;
-    }
-    public Boolean checkEmailPassword(String email,String mdps){
-        SQLiteDatabase mydatabase =  this.getWritableDatabase();
-        Cursor cursor=mydatabase.rawQuery("select * from professionnel where email = ? and mdps=?",new String[]{email,mdps});
-        if (cursor.getCount()>0)
-            return true;
-        else
-            return false;
     }
 }
