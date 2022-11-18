@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,8 +15,8 @@ public class InscriptionActivity extends AppCompatActivity {
 
     // creating variables for our edittext, button and dbhandler
     private EditText nomEdt ,emailEdt,passwordEdt,metierEdt,villeEdt,numtelEdt,descriptionEdt;
-    private Button submitBtn ,Inscrption,button;
-    Helper helper;
+    private Button submitBtn ,Inscrption;
+    private Helper helper;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +24,9 @@ public class InscriptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inscription2);
 
         // initializing all our variables.
-        nomEdt = findViewById(R.id.nom);
+        nomEdt=findViewById(R.id.nom);
         emailEdt=findViewById(R.id.email);
-        passwordEdt=findViewById(R.id.password);
+        passwordEdt=findViewById(R.id.passwordEdite);
         metierEdt=findViewById(R.id.metier);
         villeEdt=findViewById(R.id.ville);
         numtelEdt=findViewById(R.id.numtel);
@@ -63,7 +61,8 @@ public class InscriptionActivity extends AppCompatActivity {
             try{
                 helper.addNewProfessionnel( nom ,email,password,metier,numtel,ville ,description);
                 Toast.makeText(InscriptionActivity.this, "Professionnel has been added.", Toast.LENGTH_SHORT).show();
-
+                Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(i);
             }catch (Exception E){
                 Toast.makeText(InscriptionActivity.this, "error.", Toast.LENGTH_SHORT).show();
 
@@ -73,17 +72,17 @@ public class InscriptionActivity extends AppCompatActivity {
 
             // after adding the data we are displaying a toast message.
 
-            nomEdt.setText("");
-            emailEdt.setText("");
-            passwordEdt.setText("");
-            metierEdt.setText("");
-            villeEdt.setText("");
-            numtelEdt.setText("");
-            descriptionEdt.setText("");
+//            nomEdt.setText("");
+//            emailEdt.setText("");
+//            passwordEdt.setText("");
+//            metierEdt.setText("");
+//            villeEdt.setText("");
+//            numtelEdt.setText("");
+//            descriptionEdt.setText("");
+
+
         });
 
-
     }
-
 
 }

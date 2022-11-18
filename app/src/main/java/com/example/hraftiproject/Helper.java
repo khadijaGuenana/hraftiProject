@@ -1,14 +1,18 @@
 package com.example.hraftiproject;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
 
-public class  Helper extends SQLiteOpenHelper {
+public class Helper extends SQLiteOpenHelper {
 
     // creating a constant variables for our database.
     private static final String DB_NAME = "database";
@@ -30,11 +34,7 @@ public class  Helper extends SQLiteOpenHelper {
   //  private static final String TRACKS_COL = "tracks";
 
     // creating a constructor for our database handler.
-    public Helper(InscriptionActivity context) {
-        super(context, DB_NAME, null, DB_VERSION);
-    }
-
-    public Helper(MainActivity context) {
+    public Helper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
@@ -116,39 +116,118 @@ public class  Helper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
-
-
-    public ArrayList<JobModel> readJobs() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursorJobs = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        ArrayList<JobModel> jobModelArrayList = new ArrayList<>();
-
-             while (cursorJobs.moveToNext()){
-            jobModelArrayList.add(new JobModel(
-                    cursorJobs.getString(4),
-                    cursorJobs.getString(1),
-                    cursorJobs.getString(5),
-                    cursorJobs.getString(6)));
-        }
-
-        cursorJobs.close();
-        return jobModelArrayList;
+    public Boolean checkEmail(String email){
+       SQLiteDatabase mydatabase =  this.getWritableDatabase();
+        Cursor cursor=mydatabase.rawQuery("select * from professionnel where email = ?",new String[]{email});
+        if (cursor.getCount()>0)
+            return true;
+        else
+            return false;
+    }
+    public Boolean checkEmailPassword(String email,String mdps){
+        SQLiteDatabase mydatabase =  this.getWritableDatabase();
+        Cursor cursor=mydatabase.rawQuery("select * from professionnel where email = ? and mdps=?",new String[]{email,mdps});
+        if (cursor.getCount()>0)
+            return true;
+        else
+            return false;
     }
 
-    public ArrayList<JobModel> returnJob( String value){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursorJobs = db.rawQuery("SELECT * FROM " + TABLE_NAME + " where metier  like ?" , new String[]{"%"+value+"%"});
-        ArrayList<JobModel> jobs = new ArrayList<JobModel>();
+    public Boolean updatePasswd(String email, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PASSWORD_COL, password);
+       long result =  db.update(TABLE_NAME, values,"email= ?" ,new String[]{email});
+        if(result == -1) return false;
+        else return true;
+    }
+    public ArrayList<User> getAllData() {
 
-        while (cursorJobs.moveToNext()){
-            jobs.add(new JobModel(
-                    cursorJobs.getString(4),
-                    cursorJobs.getString(1),
-                    cursorJobs.getString(5),
-                    cursorJobs.getString(6)));
+        ArrayList<User> arrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM professionnel", null);
+
+        while (cursor.moveToNext()) {
+            String Name = cursor.getString(1);
+            String Email = cursor.getString(2);
+            String Metier = cursor.getString(4);
+            int phone = cursor.getInt(5);
+            String ville = cursor.getString(6);
+            String description = cursor.getString(7);
+
+
+            User user = new User(Name, Email, Metier, ville, description, phone);
+            arrayList.add(user);
         }
+        return arrayList;
+    }
 
-        cursorJobs.close();
-        return jobs;
+    public User getUser(String Email) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        String sql = "SELECT * FROM " + TABLE_NAME
+                + " WHERE " + EMAIL_COL + " Like '" + Email + "'";
+        try {
+            Cursor cursor = db.rawQuery(sql, null);
+
+            User user = new User();
+            System.out.println(cursor.moveToFirst());
+
+
+            // Read data, I simplify cursor in one line
+            if (cursor.moveToFirst()) {
+
+                // Get imageData in byte[]. Easy, right?
+                user.setId(cursor.getInt(0));
+                user.setName(cursor.getString(1));
+                user.setEmail(cursor.getString(2));
+                user.setMetier(cursor.getString(4));
+                user.setPhone(cursor.getInt(5));
+                user.setVille(cursor.getString(6));
+                user.setDescription(cursor.getString(7));
+
+
+            }
+            cursor.close();
+            db.close();
+            return user;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public void UpdateProfessionnel(int id,String nom, String email, String mt, int numtel, String ville, String description) {
+
+        String where="id=?";
+        String[] whereArgs = new String[] {String.valueOf(id)};
+        // on below line we are creating a variable for
+        // our sqlite database and calling writable method
+        // as we are writing data in our database.
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // on below line we are creating a
+        // variable for content values.
+        ContentValues values = new ContentValues();
+
+        // on below line we are passing all values
+        // along with its key and value pair.
+        values.put(Nom_COL, nom);
+        values.put(EMAIL_COL, email);
+        values.put(Metier_COL, mt);
+        values.put(numTel_COL, numtel);
+        values.put(ville_COL, ville);
+        values.put(description_COL, description);
+
+
+        // after adding all values we are passing
+        // content values to our table.
+        db.update(TABLE_NAME, values,where,whereArgs);
+
+        // at last we are closing our
+        // database after adding database.
+        db.close();
     }
 }
