@@ -2,11 +2,14 @@ package com.example.hraftiproject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 
 
 public class Helper extends SQLiteOpenHelper {
@@ -25,10 +28,8 @@ public class Helper extends SQLiteOpenHelper {
     private static final String description_COL = "description";
 
 
-
-
     // below variable is for our course tracks column.
-  //  private static final String TRACKS_COL = "tracks";
+    //  private static final String TRACKS_COL = "tracks";
 
     // creating a constructor for our database handler.
     public Helper(Context context) {
@@ -42,11 +43,11 @@ public class Helper extends SQLiteOpenHelper {
         // an sqlite query and we are
         // setting our column names
         // along with their data types.
-        String query ="CREATE TABLE " + TABLE_NAME + " ("
+        String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + Nom_COL +  " TEXT,"
-                +EMAIL_COL+  " TEXT UNIQUE ,"
-                +PASSWORD_COL+ " TEXT ,"
+                + Nom_COL + " TEXT,"
+                + EMAIL_COL + " TEXT UNIQUE ,"
+                + PASSWORD_COL + " TEXT ,"
                 + Metier_COL + " TEXT ,"
                 + numTel_COL + " INTEGER UNIQUE ,"
                 + ville_COL + " TEXT,"
@@ -60,23 +61,23 @@ public class Helper extends SQLiteOpenHelper {
         String ROW1 = "INSERT INTO " + TABLE_NAME + " ("
                 + Nom_COL + ", " + EMAIL_COL + ", "
                 + PASSWORD_COL + ", " + Metier_COL + ", "
-                +numTel_COL+", " + ville_COL + ","
-                + description_COL +")  Values ('nom prenom'," +
+                + numTel_COL + ", " + ville_COL + ","
+                + description_COL + ")  Values ('nom prenom'," +
                 " 'email1@gmail.com', 'password', 'metier1', " +
                 "'0612457893' ,'marrakech' ,'description du metier')";
         db.execSQL(ROW1);
         String ROW2 = "INSERT INTO " + TABLE_NAME + " ("
                 + Nom_COL + ", " + EMAIL_COL + ", "
                 + PASSWORD_COL + ", " + Metier_COL + ", "
-                +numTel_COL+", " + ville_COL + ","
-                + description_COL +")  Values ('nom prenom2'," +
+                + numTel_COL + ", " + ville_COL + ","
+                + description_COL + ")  Values ('nom prenom2'," +
                 " 'email2@gmail.com', 'password', 'metier2', " +
                 "'0714895263' ,'agadir' ,'description du metier2')";
         db.execSQL(ROW2);
     }
 
     // this method is use to add new course to our sqlite database.
-    public void addNewProfessionnel(String nom ,String email ,String password,String mt,int numtel ,String ville,String  description) {
+    public void addNewProfessionnel(String nom, String email, String password, String mt, int numtel, String ville, String description) {
 
         // on below line we are creating a variable for
         // our sqlite database and calling writable method
@@ -92,8 +93,8 @@ public class Helper extends SQLiteOpenHelper {
         values.put(Nom_COL, nom);
         values.put(EMAIL_COL, email);
         values.put(PASSWORD_COL, password);
-        values.put(Metier_COL , mt);
-        values.put(numTel_COL , numtel);
+        values.put(Metier_COL, mt);
+        values.put(numTel_COL, numtel);
         values.put(ville_COL, ville);
         values.put(description_COL, description);
 
@@ -113,4 +114,96 @@ public class Helper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+
+    public ArrayList<User> getAllData() {
+
+        ArrayList<User> arrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM professionnel", null);
+
+        while (cursor.moveToNext()) {
+            String Name = cursor.getString(1);
+            String Email = cursor.getString(2);
+            String Metier = cursor.getString(4);
+            int phone = cursor.getInt(5);
+            String ville = cursor.getString(6);
+            String description = cursor.getString(7);
+
+
+            User user = new User(Name, Email, Metier, ville, description, phone);
+            arrayList.add(user);
+        }
+        return arrayList;
+    }
+
+    public User getUser(String Email) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        String sql = "SELECT * FROM " + TABLE_NAME
+                + " WHERE " + EMAIL_COL + " Like '" + Email + "'";
+        try {
+            Cursor cursor = db.rawQuery(sql, null);
+
+            User user = new User();
+            System.out.println(cursor.moveToFirst());
+
+
+            // Read data, I simplify cursor in one line
+            if (cursor.moveToFirst()) {
+
+                // Get imageData in byte[]. Easy, right?
+                user.setId(cursor.getInt(0));
+                user.setName(cursor.getString(1));
+                user.setEmail(cursor.getString(2));
+                user.setMetier(cursor.getString(4));
+                user.setPhone(cursor.getInt(5));
+                user.setVille(cursor.getString(6));
+                user.setDescription(cursor.getString(7));
+
+
+            }
+            cursor.close();
+            db.close();
+            return user;
+
+        } catch (SQLException e) {
+             e.printStackTrace();
+        }
+        return null;
+    }
+    public void UpdateProfessionnel(int id,String nom, String email, String mt, int numtel, String ville, String description) {
+
+        String where="id=?";
+        String[] whereArgs = new String[] {String.valueOf(id)};
+        // on below line we are creating a variable for
+        // our sqlite database and calling writable method
+        // as we are writing data in our database.
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // on below line we are creating a
+        // variable for content values.
+        ContentValues values = new ContentValues();
+
+        // on below line we are passing all values
+        // along with its key and value pair.
+        values.put(Nom_COL, nom);
+        values.put(EMAIL_COL, email);
+        values.put(Metier_COL, mt);
+        values.put(numTel_COL, numtel);
+        values.put(ville_COL, ville);
+        values.put(description_COL, description);
+
+
+        // after adding all values we are passing
+        // content values to our table.
+        db.update(TABLE_NAME, values,where,whereArgs);
+
+        // at last we are closing our
+        // database after adding database.
+        db.close();
+    }
+
+
 }
