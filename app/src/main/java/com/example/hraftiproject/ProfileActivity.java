@@ -143,6 +143,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 close();
+                edit_nomC.setText(user.getName());
+                edit_email.setText(user.getEmail());
+                edit_ville.setText(user.getVille());
+                edit_metier.setText(user.getMetier());
+                edit_description.setText(user.getDescription());
+                edit_phone.setText(String.valueOf(user.getPhone()));
 
             }
         });
