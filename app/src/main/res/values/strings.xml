@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">hraftiProject</string>
+    <string name="textview">TextView</string>
+    <string name="button">Button</string>
+    <string name="_7refti">7refti</string>
+    <string name="view_profile">View Profile</string>
 </resources>

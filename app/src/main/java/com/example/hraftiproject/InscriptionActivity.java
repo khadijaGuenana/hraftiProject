@@ -3,8 +3,10 @@ package com.example.hraftiproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,8 +17,8 @@ public class InscriptionActivity extends AppCompatActivity {
 
     // creating variables for our edittext, button and dbhandler
     private EditText nomEdt ,emailEdt,passwordEdt,metierEdt,villeEdt,numtelEdt,descriptionEdt;
-    private Button submitBtn ,Inscrption;
-    private Helper helper;
+    private Button submitBtn ,Inscrption,button;
+    Helper helper;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,7 @@ public class InscriptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inscription2);
 
         // initializing all our variables.
-        nomEdt=findViewById(R.id.nom);
+        nomEdt = findViewById(R.id.nom);
         emailEdt=findViewById(R.id.email);
         passwordEdt=findViewById(R.id.password);
         metierEdt=findViewById(R.id.metier);
@@ -80,6 +82,8 @@ public class InscriptionActivity extends AppCompatActivity {
             descriptionEdt.setText("");
         });
 
+
     }
+
 
 }

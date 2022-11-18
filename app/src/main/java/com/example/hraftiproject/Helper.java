@@ -1,15 +1,14 @@
 package com.example.hraftiproject;
 
 import android.content.ContentValues;
-import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
+import java.util.ArrayList;
 
 
-
-public class Helper extends SQLiteOpenHelper {
+public class  Helper extends SQLiteOpenHelper {
 
     // creating a constant variables for our database.
     private static final String DB_NAME = "database";
@@ -31,7 +30,11 @@ public class Helper extends SQLiteOpenHelper {
   //  private static final String TRACKS_COL = "tracks";
 
     // creating a constructor for our database handler.
-    public Helper(Context context) {
+    public Helper(InscriptionActivity context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
+
+    public Helper(MainActivity context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
@@ -112,5 +115,40 @@ public class Helper extends SQLiteOpenHelper {
         // this method is called to check if the table exists already.
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
+    }
+
+
+    public ArrayList<JobModel> readJobs() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorJobs = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        ArrayList<JobModel> jobModelArrayList = new ArrayList<>();
+
+             while (cursorJobs.moveToNext()){
+            jobModelArrayList.add(new JobModel(
+                    cursorJobs.getString(4),
+                    cursorJobs.getString(1),
+                    cursorJobs.getString(5),
+                    cursorJobs.getString(6)));
+        }
+
+        cursorJobs.close();
+        return jobModelArrayList;
+    }
+
+    public ArrayList<JobModel> returnJob( String value){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorJobs = db.rawQuery("SELECT * FROM " + TABLE_NAME + " where metier  like ?" , new String[]{"%"+value+"%"});
+        ArrayList<JobModel> jobs = new ArrayList<JobModel>();
+
+        while (cursorJobs.moveToNext()){
+            jobs.add(new JobModel(
+                    cursorJobs.getString(4),
+                    cursorJobs.getString(1),
+                    cursorJobs.getString(5),
+                    cursorJobs.getString(6)));
+        }
+
+        cursorJobs.close();
+        return jobs;
     }
 }
