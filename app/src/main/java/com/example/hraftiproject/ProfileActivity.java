@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -43,8 +44,9 @@ public class ProfileActivity extends AppCompatActivity {
         btnSubmit=findViewById(R.id.submit);
         btnCancel=findViewById(R.id.cancel);
 
-
-        String userEmail = "email1@gmail.com";
+        Intent i = getIntent();
+        email.setText(i.getStringExtra("useremail"));
+        String userEmail = email.getText().toString();
         user = helper.getUser(userEmail);
 
         nameC.setText(user.getName());

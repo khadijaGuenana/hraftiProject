@@ -44,7 +44,9 @@ public class LoginActivity extends AppCompatActivity {
                     else {
                         Boolean checkpass = database.checkEmailPassword(user, pass);
                         if (checkpass) {
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
+                            i.putExtra("useremail",user);
+                            startActivity(i);
                             Toast.makeText(LoginActivity.this, "connection succès", Toast.LENGTH_SHORT).show();
 
                         } else {
