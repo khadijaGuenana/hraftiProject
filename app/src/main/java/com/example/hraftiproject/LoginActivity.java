@@ -6,26 +6,27 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
-        TextView Email,motdepasse;
+        EditText Email,motdepasse;
         ImageView SeConnecter;
-        Button motdpOublie;
+        TextView motdpOublie;
+        TextView Inscrire;
         Helper database;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Email = findViewById(R.id.textEmail);
-        motdepasse = findViewById(R.id.textpaswd);
+        Email = findViewById(R.id.email);
+        motdepasse = findViewById(R.id.passwordEdite);
         SeConnecter = findViewById(R.id.Seconnect);
         motdpOublie = findViewById(R.id.Oublie);
+        Inscrire =findViewById(R.id.button2);
         database = new Helper(this);
 
         SeConnecter.setOnClickListener(new View.OnClickListener() {
@@ -34,21 +35,22 @@ public class LoginActivity extends AppCompatActivity {
                 String user =Email.getText().toString();
                 String pass = motdepasse.getText().toString();
                 if(user.equals("")){
-                    Toast.makeText(LoginActivity.this,"enter votre email",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"entrer votre email",Toast.LENGTH_SHORT).show();
                 }
-                if (pass.equals("")){
-                    Toast.makeText(LoginActivity.this,"enter votre mot de passe",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Boolean checkpass=database.checkEmailPassword(user,pass);
-                    if (checkpass == true){
-                        Toast.makeText(LoginActivity.this,"connection succès",Toast.LENGTH_SHORT).show();
-//                        Intent i=new Intent(getApplicationContext(),HomeActivity.class);
-//                        startActivity(i);
+                else {
+                    if (pass.equals("")) {
+                        Toast.makeText(LoginActivity.this, "entrer votre mot de passe", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(LoginActivity.this,"Informations invalides",Toast.LENGTH_SHORT).show();
+                        Boolean checkpass = database.checkEmailPassword(user, pass);
+                        if (checkpass) {
+                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            Toast.makeText(LoginActivity.this, "connection succès", Toast.LENGTH_SHORT).show();
 
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Informations invalides", Toast.LENGTH_SHORT).show();
+
+                        }
                     }
                 }
 
@@ -57,7 +59,15 @@ public class LoginActivity extends AppCompatActivity {
         motdpOublie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(getApplicationContext(),ForgotPswdActivity.class);
+                startActivity(i);
+            }
+        });
+        Inscrire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),InscriptionActivity.class);
+                startActivity(i);
             }
         });
     }
