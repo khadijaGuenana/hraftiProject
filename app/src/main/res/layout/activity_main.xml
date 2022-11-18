@@ -83,7 +83,7 @@
             android:layout_height="31dp"
             android:layout_marginLeft="190dp"
             android:layout_marginTop="10dp"
-            android:background="@color/lightWhite"
+            android:background="@color/yellow"
             android:padding="0dp"
             android:text="@string/view_profile"
             android:textSize="10sp"

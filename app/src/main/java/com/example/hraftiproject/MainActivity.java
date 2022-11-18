@@ -88,6 +88,18 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, InscriptionActivity.class);
             startActivity(intent);
         }
+        if (id == R.id.login) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.profil) {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
         switch (item.getItemId()) {
             case R.id.search:
                 return true;

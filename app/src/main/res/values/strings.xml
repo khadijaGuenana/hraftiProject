@@ -16,5 +16,6 @@
     <string name="entrer_le_nouveau_mot_de_passe">Entrer le nouveau mot de passe</string>
     <string name="re_enter_mot_de_passe">Re-enter mot de passe</string>
     <string name="valideReset">Valide</string>
+    <string name="view_profile">View Profile</string>
 
 </resources>

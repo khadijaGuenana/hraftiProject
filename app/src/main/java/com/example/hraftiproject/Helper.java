@@ -37,7 +37,13 @@ public class Helper extends SQLiteOpenHelper {
     public Helper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
+    public Helper(InscriptionActivity context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
 
+    public Helper(MainActivity context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
     // below method is for creating a database by running a sqlite query
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -229,5 +235,40 @@ public class Helper extends SQLiteOpenHelper {
         // at last we are closing our
         // database after adding database.
         db.close();
+    }
+
+
+    public ArrayList<JobModel> readJobs() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorJobs = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        ArrayList<JobModel> jobModelArrayList = new ArrayList<>();
+
+        while (cursorJobs.moveToNext()){
+            jobModelArrayList.add(new JobModel(
+                    cursorJobs.getString(4),
+                    cursorJobs.getString(1),
+                    cursorJobs.getString(5),
+                    cursorJobs.getString(6)));
+        }
+
+        cursorJobs.close();
+        return jobModelArrayList;
+    }
+
+    public ArrayList<JobModel> returnJob( String value){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorJobs = db.rawQuery("SELECT * FROM " + TABLE_NAME + " where metier  like ?" , new String[]{"%"+value+"%"});
+        ArrayList<JobModel> jobs = new ArrayList<JobModel>();
+
+        while (cursorJobs.moveToNext()){
+            jobs.add(new JobModel(
+                    cursorJobs.getString(4),
+                    cursorJobs.getString(1),
+                    cursorJobs.getString(5),
+                    cursorJobs.getString(6)));
+        }
+
+        cursorJobs.close();
+        return jobs;
     }
 }
