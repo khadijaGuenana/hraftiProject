@@ -179,7 +179,6 @@ public class Helper extends SQLiteOpenHelper {
             Cursor cursor = db.rawQuery(sql, null);
 
             User user = new User();
-            System.out.println(cursor.moveToFirst());
 
 
             // Read data, I simplify cursor in one line

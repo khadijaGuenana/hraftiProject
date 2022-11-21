@@ -6,6 +6,8 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.SearchView;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     RecyclerView listView;
     Button button;
+    LoginActivity login=new LoginActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         Actualiser("");
 
 
+
     }
 
 
@@ -60,6 +64,20 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
 
         inflater.inflate(R.menu.menu, menu);
+        //
+
+        MenuItem i=menu.findItem(R.id.inscription);
+        MenuItem i1=menu.findItem(R.id.login);
+        if (login.IsLoged()){
+            i.setVisible(false);
+            i1.setVisible(false);
+        }
+        MenuItem i2=menu.findItem(R.id.profil);
+        MenuItem i3=menu.findItem(R.id.home);
+        if (!login.IsLoged()){
+            i3.setVisible(false);
+            i2.setVisible(false);
+        }
 
         MenuItem myItem = menu.findItem(R.id.search);
         SearchView sv = (SearchView) MenuItemCompat.getActionView(myItem);
@@ -82,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         int id = item.getItemId();
         if (id == R.id.inscription) {
             Intent intent = new Intent(this, InscriptionActivity.class);
@@ -94,11 +111,15 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.profil) {
             Intent intent = new Intent(this, ProfileActivity.class);
+            SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+            String email = sh.getString("useremail", "");
+            intent.putExtra("useremail",email);
             startActivity(intent);
         }
         if (id == R.id.home) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            login.Logout();
         }
         switch (item.getItemId()) {
             case R.id.search:

@@ -24,7 +24,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        System.out.println("heloo");
         helper = new Helper(getApplicationContext());
         user = new User();
         nameC = findViewById(R.id.input_name);
@@ -63,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
         edit_description.setText(user.getDescription());
         phone.setText(String.valueOf(user.getPhone()));
         edit_phone.setText(String.valueOf(user.getPhone()));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
