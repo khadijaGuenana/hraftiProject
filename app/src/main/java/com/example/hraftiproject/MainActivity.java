@@ -6,6 +6,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.View;
 import android.widget.SearchView;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +14,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<JobModel> jobModalArrayList;
-    private Helper dbHandler;
+    private static Helper dbHandler;
     private MyAdapter myAdapter;
     private RecyclerView recyclerView;
     RecyclerView listView;
@@ -106,6 +108,45 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView job;
+        public TextView name;
+        public TextView number;
+        public TextView city;
+        String email;
+
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            job = itemView.findViewById(R.id.job);
+            name = itemView.findViewById(R.id.textname);
+            number = itemView.findViewById(R.id.textnumber);
+            city = itemView.findViewById(R.id.textcity);
+
+
+            itemView.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    email = dbHandler.getEmailByName(name.getText().toString());
+                    Intent intent = new Intent(view.getContext(), ProfileActivity.class);
+                    intent.putExtra("useremail", email);
+                    System.out.println(email);
+                    view.getContext().startActivity(intent);
+                }
+
+
+            });
+
+        }
+
+
+    }
+
 }
 
 

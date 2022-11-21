@@ -5,6 +5,7 @@ public class JobModel {
      private String name;
     private String number;
     private String city;
+    private String email;
 
     public String getJob() {
         return job;
@@ -49,10 +50,11 @@ public class JobModel {
         this.description = description;
     }
 
-    public JobModel(String job,String name, String number, String city) {
+    public JobModel(String job,String name, String number, String city, String email) {
         this.job = job;
         this.name = name;
         this.number = number;
         this.city = city;
+        this.email = email;
     }
 }
