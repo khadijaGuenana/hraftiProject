@@ -21,6 +21,7 @@ public class MyAdapter  extends RecyclerView.Adapter<MainActivity.ViewHolder> {
     private Context context;
     private ArrayList<JobModel> jobsArrayList;
 
+
     public MyAdapter(ArrayList<JobModel> jobsArrayList, Context context) {
         this.jobsArrayList = jobsArrayList;
         this.context = context;
