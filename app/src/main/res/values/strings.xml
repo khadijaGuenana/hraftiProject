@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">hraftiProject</string>
     <string name="LoginImg">LoginImg</string>
-    <string name="email">  ........................................</string>
+    <string name="email">  Email</string>
     <string name="password">TextView</string>
-    <string name="mot_de_passe">  ........................................</string>
+    <string name="mot_de_passe">  Mot de passe</string>
     <string name="login">TODO</string>
     <string name="flesh">TODO</string>
     <string name="textemail">Email :</string>
@@ -17,5 +17,6 @@
     <string name="re_enter_mot_de_passe">Re-enter mot de passe</string>
     <string name="valideReset">Valide</string>
     <string name="view_profile">View Profile</string>
+    <string name="nonInscrie">vous n\'êtes pas encore inscrit ?</string>
 
 </resources>
