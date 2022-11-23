@@ -6,9 +6,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 
@@ -26,6 +29,11 @@ public class Helper extends SQLiteOpenHelper {
     private static final String numTel_COL = "numTel";
     private static final String ville_COL = "ville";
     private static final String description_COL = "description";
+    private static final String image_COL = "image";
+    Context context;
+
+    private   byte[] imageInBytes;
+    private ByteArrayOutputStream byteArrayOutputStream;
 
 
 
@@ -36,6 +44,7 @@ public class Helper extends SQLiteOpenHelper {
     // creating a constructor for our database handler.
     public Helper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        this.context=context;
     }
     public Helper(InscriptionActivity context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -47,10 +56,7 @@ public class Helper extends SQLiteOpenHelper {
     // below method is for creating a database by running a sqlite query
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // on below line we are creating
-        // an sqlite query and we are
-        // setting our column names
-        // along with their data types.
+        // on below line we are creating an sqlite query and we are setting our column names along with their data types.
         String query ="CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Nom_COL +  " TEXT,"
@@ -59,13 +65,14 @@ public class Helper extends SQLiteOpenHelper {
                 + Metier_COL + " TEXT ,"
                 + numTel_COL + " INTEGER UNIQUE ,"
                 + ville_COL + " TEXT,"
-                + description_COL + " TEXT)";
+                + description_COL + " TEXT,"
+                +image_COL+ " BLOB)";
 
-        // at last we are calling a exec sql
-        // method to execute above sql query
+        // at last we are calling a exec sql method to execute above sql query
+
         db.execSQL(query);
 
-
+       /*
         String ROW1 = "INSERT INTO " + TABLE_NAME + " ("
                 + Nom_COL + ", " + EMAIL_COL + ", "
                 + PASSWORD_COL + ", " + Metier_COL + ", "
@@ -81,23 +88,27 @@ public class Helper extends SQLiteOpenHelper {
                 + description_COL +")  Values ('nom prenom2'," +
                 " 'email2@gmail.com', 'password', 'metier2', " +
                 "'0714895263' ,'agadir' ,'description du metier2')";
-        db.execSQL(ROW2);
+        db.execSQL(ROW2); */
     }
 
-    // this method is use to add new course to our sqlite database.
-    public void addNewProfessionnel(String nom ,String email ,String password,String mt,int numtel ,String ville,String  description) {
+    // this method is use to add new Professionnel to our sqlite database.
+    public void addNewProfessionnel(String nom ,String email ,String password,String mt,int numtel ,String ville,String  description ,Bitmap Image) {
 
-        // on below line we are creating a variable for
-        // our sqlite database and calling writable method
-        // as we are writing data in our database.
+        // on below line we are creating a variable for our sqlite database and calling writable method as we are writing data in our database.
+
         SQLiteDatabase db = this.getWritableDatabase();
+        ///IMAGE STORE
+        Bitmap profileImage=Image; //imagetostorebitmap
+        byteArrayOutputStream= new ByteArrayOutputStream();
+        profileImage.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        imageInBytes=byteArrayOutputStream.toByteArray();
 
-        // on below line we are creating a
-        // variable for content values.
+        // on below line we are creating a  variable for content values.
+
         ContentValues values = new ContentValues();
 
-        // on below line we are passing all values
-        // along with its key and value pair.
+        // on below line we are passing all values along with its key and value pair.
+
         values.put(Nom_COL, nom);
         values.put(EMAIL_COL, email);
         values.put(PASSWORD_COL, password);
@@ -105,15 +116,21 @@ public class Helper extends SQLiteOpenHelper {
         values.put(numTel_COL , numtel);
         values.put(ville_COL, ville);
         values.put(description_COL, description);
+        values.put(image_COL, imageInBytes);
 
+        // after adding all values we are passing content values to our table.
+        Long checkifQueryRun =db.insert(TABLE_NAME, null, values);
 
-        // after adding all values we are passing
-        // content values to our table.
-        db.insert(TABLE_NAME, null, values);
+         if (checkifQueryRun !=-1 ){
+             Toast.makeText(context.getApplicationContext(),"table added successfully",Toast.LENGTH_SHORT).show();
+             // at last we are closing our  database after adding database.
 
-        // at last we are closing our
-        // database after adding database.
-        db.close();
+             db.close();
+         }else{
+             Toast.makeText(context.getApplicationContext(),"fail to add",Toast.LENGTH_SHORT).show();
+
+         }
+
     }
 
     @Override
