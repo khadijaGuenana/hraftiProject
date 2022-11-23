@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -195,11 +196,10 @@ public class Helper extends SQLiteOpenHelper {
             Cursor cursor = db.rawQuery(sql, null);
 
             User user = new User();
-
-
             // Read data, I simplify cursor in one line
             if (cursor.moveToFirst()) {
-
+                byte[] imgByte = cursor.getBlob(8);
+                Bitmap image=BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
                 // Get imageData in byte[]. Easy, right?
                 user.setId(cursor.getInt(0));
                 user.setName(cursor.getString(1));
@@ -208,8 +208,7 @@ public class Helper extends SQLiteOpenHelper {
                 user.setPhone(cursor.getInt(5));
                 user.setVille(cursor.getString(6));
                 user.setDescription(cursor.getString(7));
-
-
+                user.setImage(image);
             }
             cursor.close();
             db.close();

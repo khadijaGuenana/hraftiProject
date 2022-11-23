@@ -1,8 +1,19 @@
 package com.example.hraftiproject;
 
+import android.graphics.Bitmap;
+
 public class User {
     String Name,Email,Metier,ville,description;
     int phone,id;
+    Bitmap image;
+
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
 
     public int getId() {
         return id;

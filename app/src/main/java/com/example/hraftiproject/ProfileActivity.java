@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
     EditText edit_nomC,edit_email,edit_ville,edit_description,edit_metier,edit_phone;
     Button btnSubmit,btnCancel;
     LoginActivity login=new LoginActivity();
+    ImageView imageView;
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -46,10 +48,14 @@ public class ProfileActivity extends AppCompatActivity {
         edit_phone=findViewById(R.id.edit_phone);
         btnSubmit=findViewById(R.id.submit);
         btnCancel=findViewById(R.id.cancel);
-
+        imageView=findViewById(R.id.profileImage);
+        System.out.println(
+                user.getName()
+        );
         Intent i = getIntent();
         email.setText(i.getStringExtra("useremail"));
         String userEmail = email.getText().toString();
+        System.out.println(userEmail);
         user = helper.getUser(userEmail);
         nameC.setText(user.getName());
         name.setText(user.getName());
@@ -65,6 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
         edit_description.setText(user.getDescription());
         phone.setText(String.valueOf(user.getPhone()));
         edit_phone.setText(String.valueOf(user.getPhone()));
+        imageView.setImageBitmap(user.getImage());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (login.IsLoged() ) {
             SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
@@ -76,7 +83,6 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     name.setVisibility(View.GONE);
-                    System.out.println("heree");
                     edit_nomC.setVisibility(View.VISIBLE);
                     btnSubmit.setVisibility(View.VISIBLE);
                     btnCancel.setVisibility(View.VISIBLE);
