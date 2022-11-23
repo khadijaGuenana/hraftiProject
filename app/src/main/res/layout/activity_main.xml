@@ -9,6 +9,7 @@
     android:layout_margin="5dp"
     android:elevation="8dp"
 
+
   >
 
 
@@ -22,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:orientation="vertical"
-        android:layout_marginTop="10dp"
+
+       android:background="@drawable/back"
        >
 
         <TextView
@@ -34,6 +36,7 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="25sp"
+            android:layout_marginTop="18dp"
             android:fontFamily="@font/police"/>
             <TextView
             android:id="@+id/textname"
@@ -66,7 +69,7 @@
                 android:fontFamily="@font/police1" />
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginLeft="255dp"
@@ -79,14 +82,14 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="200dp"
+            android:layout_width="180dp"
             android:layout_height="31dp"
-            android:layout_marginLeft="190dp"
+            android:layout_marginLeft="200dp"
             android:layout_marginTop="10dp"
             android:background="@color/yellow"
             android:padding="0dp"
             android:text="@string/view_profile"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="bold"
 
             tools:ignore="TouchTargetSizeCheck" />

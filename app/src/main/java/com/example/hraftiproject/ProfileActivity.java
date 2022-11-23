@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,12 +21,13 @@ public class ProfileActivity extends AppCompatActivity {
     TextView nameC,email,ville,descreption,metier,phone,name,metierC;
     EditText edit_nomC,edit_email,edit_ville,edit_description,edit_metier,edit_phone;
     Button btnSubmit,btnCancel;
+    LoginActivity login=new LoginActivity();
+
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        System.out.println("heloo");
         helper = new Helper(getApplicationContext());
         user = new User();
         nameC = findViewById(R.id.input_name);
@@ -48,7 +51,6 @@ public class ProfileActivity extends AppCompatActivity {
         email.setText(i.getStringExtra("useremail"));
         String userEmail = email.getText().toString();
         user = helper.getUser(userEmail);
-
         nameC.setText(user.getName());
         name.setText(user.getName());
         edit_nomC.setText(user.getName());
@@ -63,97 +65,109 @@ public class ProfileActivity extends AppCompatActivity {
         edit_description.setText(user.getDescription());
         phone.setText(String.valueOf(user.getPhone()));
         edit_phone.setText(String.valueOf(user.getPhone()));
-        name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                name.setVisibility(View.GONE);
-                edit_nomC.setVisibility(View.VISIBLE);
-                btnSubmit.setVisibility(View.VISIBLE);
-                btnCancel.setVisibility(View.VISIBLE);
-            }
-        });
-        email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                email.setVisibility(View.GONE);
-                edit_email.setVisibility(View.VISIBLE);
-                btnSubmit.setVisibility(View.VISIBLE);
-                btnCancel.setVisibility(View.VISIBLE);
-            }
-        });
-        ville.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ville.setVisibility(View.GONE);
-                edit_ville.setVisibility(View.VISIBLE);
-                btnSubmit.setVisibility(View.VISIBLE);
-                btnCancel.setVisibility(View.VISIBLE);
-            }
-        });
-        metier.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                metier.setVisibility(View.GONE);
-                edit_metier.setVisibility(View.VISIBLE);
-                btnSubmit.setVisibility(View.VISIBLE);
-                btnCancel.setVisibility(View.VISIBLE);
-            }
-        });
-        descreption.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                descreption.setVisibility(View.GONE);
-                edit_description.setVisibility(View.VISIBLE);
-                btnSubmit.setVisibility(View.VISIBLE);
-                btnCancel.setVisibility(View.VISIBLE);
-            }
-        });
-        phone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                phone.setVisibility(View.GONE);
-                edit_phone.setVisibility(View.VISIBLE);
-                btnSubmit.setVisibility(View.VISIBLE);
-                btnCancel.setVisibility(View.VISIBLE);
-            }
-        });
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    close();
-               helper.UpdateProfessionnel(user.getId()
-                       ,edit_nomC.getText().toString()
-                       ,edit_email.getText().toString()
-                       ,edit_metier.getText().toString()
-                       ,Integer.parseInt(edit_phone.getText().toString())
-                       ,edit_ville.getText().toString()
-                       ,edit_description.getText().toString()
-               );
-                user = helper.getUser(edit_email.getText().toString());
-                nameC.setText(user.getName());
-                name.setText(user.getName());
-                email.setText(user.getEmail());
-                ville.setText(user.getVille());
-                metier.setText(user.getMetier());
-                metierC.setText(user.getMetier());
-                descreption.setText(user.getDescription());
-                phone.setText(String.valueOf(user.getPhone()));
-                Toast.makeText(ProfileActivity.this, "Profile est modifier avec succès", Toast.LENGTH_LONG).show();
-            }
-        });
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                close();
-                edit_nomC.setText(user.getName());
-                edit_email.setText(user.getEmail());
-                edit_ville.setText(user.getVille());
-                edit_metier.setText(user.getMetier());
-                edit_description.setText(user.getDescription());
-                edit_phone.setText(String.valueOf(user.getPhone()));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (login.IsLoged() ) {
+            SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+            String str = sh.getString("useremail", "");
+            System.out.println(email.getText());
+            System.out.println(str);
+            if(str.equals(email.getText())){
+                name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    name.setVisibility(View.GONE);
+                    System.out.println("heree");
+                    edit_nomC.setVisibility(View.VISIBLE);
+                    btnSubmit.setVisibility(View.VISIBLE);
+                    btnCancel.setVisibility(View.VISIBLE);
+                }
+            });
+            email.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    email.setVisibility(View.GONE);
+                    edit_email.setVisibility(View.VISIBLE);
+                    btnSubmit.setVisibility(View.VISIBLE);
+                    btnCancel.setVisibility(View.VISIBLE);
+                }
+            });
 
-            }
-        });
+            ville.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ville.setVisibility(View.GONE);
+                    edit_ville.setVisibility(View.VISIBLE);
+                    btnSubmit.setVisibility(View.VISIBLE);
+                    btnCancel.setVisibility(View.VISIBLE);
+                }
+            });
+
+
+            metier.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    metier.setVisibility(View.GONE);
+                    edit_metier.setVisibility(View.VISIBLE);
+                    btnSubmit.setVisibility(View.VISIBLE);
+                    btnCancel.setVisibility(View.VISIBLE);
+                }
+            });
+            descreption.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    descreption.setVisibility(View.GONE);
+                    edit_description.setVisibility(View.VISIBLE);
+                    btnSubmit.setVisibility(View.VISIBLE);
+                    btnCancel.setVisibility(View.VISIBLE);
+                }
+            });
+            phone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    phone.setVisibility(View.GONE);
+                    edit_phone.setVisibility(View.VISIBLE);
+                    btnSubmit.setVisibility(View.VISIBLE);
+                    btnCancel.setVisibility(View.VISIBLE);
+                }
+            });}
+            btnSubmit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    close();
+                    helper.UpdateProfessionnel(user.getId()
+                            , edit_nomC.getText().toString()
+                            , edit_email.getText().toString()
+                            , edit_metier.getText().toString()
+                            , Integer.parseInt(edit_phone.getText().toString())
+                            , edit_ville.getText().toString()
+                            , edit_description.getText().toString()
+                    );
+                    user = helper.getUser(edit_email.getText().toString());
+                    nameC.setText(user.getName());
+                    name.setText(user.getName());
+                    email.setText(user.getEmail());
+                    ville.setText(user.getVille());
+                    metier.setText(user.getMetier());
+                    metierC.setText(user.getMetier());
+                    descreption.setText(user.getDescription());
+                    phone.setText(String.valueOf(user.getPhone()));
+                    Toast.makeText(ProfileActivity.this, "Profile est modifier avec succès", Toast.LENGTH_LONG).show();
+                }
+            });
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    close();
+                    edit_nomC.setText(user.getName());
+                    edit_email.setText(user.getEmail());
+                    edit_ville.setText(user.getVille());
+                    edit_metier.setText(user.getMetier());
+                    edit_description.setText(user.getDescription());
+                    edit_phone.setText(String.valueOf(user.getPhone()));
+
+                }
+            });
+        }
 
     }
     public void close(){

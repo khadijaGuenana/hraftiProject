@@ -37,11 +37,6 @@ public class Helper extends SQLiteOpenHelper {
 
 
 
-
-    // below variable is for our course tracks column.
-  //  private static final String TRACKS_COL = "tracks";
-
-    // creating a constructor for our database handler.
     public Helper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context=context;
@@ -53,6 +48,10 @@ public class Helper extends SQLiteOpenHelper {
     public Helper(MainActivity context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
+
+
+
+
     // below method is for creating a database by running a sqlite query
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -196,7 +195,6 @@ public class Helper extends SQLiteOpenHelper {
             Cursor cursor = db.rawQuery(sql, null);
 
             User user = new User();
-            System.out.println(cursor.moveToFirst());
 
 
             // Read data, I simplify cursor in one line
@@ -248,9 +246,6 @@ public class Helper extends SQLiteOpenHelper {
         // after adding all values we are passing
         // content values to our table.
         db.update(TABLE_NAME, values,where,whereArgs);
-
-        // at last we are closing our
-        // database after adding database.
         db.close();
     }
 
@@ -265,7 +260,8 @@ public class Helper extends SQLiteOpenHelper {
                     cursorJobs.getString(4),
                     cursorJobs.getString(1),
                     cursorJobs.getString(5),
-                    cursorJobs.getString(6)));
+                    cursorJobs.getString(6),
+                    cursorJobs.getString(2)));
         }
 
         cursorJobs.close();
@@ -282,10 +278,25 @@ public class Helper extends SQLiteOpenHelper {
                     cursorJobs.getString(4),
                     cursorJobs.getString(1),
                     cursorJobs.getString(5),
-                    cursorJobs.getString(6)));
+                    cursorJobs.getString(6),
+                    cursorJobs.getString(2)
+                    ));
         }
 
         cursorJobs.close();
         return jobs;
     }
+
+    public String getEmailByName(String name){
+        String email = " ";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorJobs = db.rawQuery("SELECT email FROM " + TABLE_NAME + " where  nomComplet = ?" , new String[]{name});
+        if (cursorJobs.moveToFirst()) {
+             email  =cursorJobs.getString(0);
+        }
+        cursorJobs.close();
+        return email;
+    }
+
+
 }

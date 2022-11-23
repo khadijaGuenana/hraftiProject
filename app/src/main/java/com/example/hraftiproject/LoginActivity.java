@@ -1,9 +1,9 @@
 package com.example.hraftiproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -17,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView motdpOublie;
         TextView Inscrire;
         Helper database;
+       public static Boolean isLoged = false;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,19 @@ public class LoginActivity extends AppCompatActivity {
                     else {
                         Boolean checkpass = database.checkEmailPassword(user, pass);
                         if (checkpass) {
-                            Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
+                            isLoged=true;
+                            Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                            // Storing data into SharedPreferences
+                            SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+                            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                            myEdit.putString("useremail", Email.getText().toString());
+                            myEdit.commit();
+
                             i.putExtra("useremail",user);
                             startActivity(i);
                             Toast.makeText(LoginActivity.this, "connection succès", Toast.LENGTH_SHORT).show();
+                            Email.setText("");
+                            motdepasse.setText("");
 
                         } else {
                             Toast.makeText(LoginActivity.this, "Informations invalides", Toast.LENGTH_SHORT).show();
@@ -73,4 +83,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    public static Boolean IsLoged(){
+        System.out.println(isLoged);
+        return isLoged;
+
+    }
+    public static Boolean Logout(){
+        isLoged = false;
+        System.out.println(isLoged);
+        return isLoged;
+
+    }
+
+
 }
