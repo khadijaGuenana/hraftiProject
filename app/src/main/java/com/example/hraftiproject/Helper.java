@@ -71,23 +71,6 @@ public class Helper extends SQLiteOpenHelper {
 
         db.execSQL(query);
 
-       /*
-        String ROW1 = "INSERT INTO " + TABLE_NAME + " ("
-                + Nom_COL + ", " + EMAIL_COL + ", "
-                + PASSWORD_COL + ", " + Metier_COL + ", "
-                +numTel_COL+", " + ville_COL + ","
-                + description_COL +")  Values ('nom prenom'," +
-                " 'email1@gmail.com', 'password', 'metier1', " +
-                "'0612457893' ,'marrakech' ,'description du metier')";
-        db.execSQL(ROW1);
-        String ROW2 = "INSERT INTO " + TABLE_NAME + " ("
-                + Nom_COL + ", " + EMAIL_COL + ", "
-                + PASSWORD_COL + ", " + Metier_COL + ", "
-                +numTel_COL+", " + ville_COL + ","
-                + description_COL +")  Values ('nom prenom2'," +
-                " 'email2@gmail.com', 'password', 'metier2', " +
-                "'0714895263' ,'agadir' ,'description du metier2')";
-        db.execSQL(ROW2); */
     }
 
     // this method is use to add new Professionnel to our sqlite database.
@@ -118,17 +101,10 @@ public class Helper extends SQLiteOpenHelper {
         values.put(image_COL, imageInBytes);
 
         // after adding all values we are passing content values to our table.
-        Long checkifQueryRun =db.insert(TABLE_NAME, null, values);
+        db.insert(TABLE_NAME, null, values);
+       // Long checkifQueryRun =db.insert(TABLE_NAME, null, values);
+        db.close();
 
-         if (checkifQueryRun !=-1 ){
-             Toast.makeText(context.getApplicationContext(),"table added successfully",Toast.LENGTH_SHORT).show();
-             // at last we are closing our  database after adding database.
-
-             db.close();
-         }else{
-             Toast.makeText(context.getApplicationContext(),"fail to add",Toast.LENGTH_SHORT).show();
-
-         }
 
     }
 
@@ -176,6 +152,7 @@ public class Helper extends SQLiteOpenHelper {
             int phone = cursor.getInt(5);
             String ville = cursor.getString(6);
             String description = cursor.getString(7);
+
 
 
             User user = new User(Name, Email, Metier, ville, description, phone);
