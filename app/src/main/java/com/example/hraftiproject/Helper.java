@@ -219,7 +219,7 @@ public class Helper extends SQLiteOpenHelper {
         }
         return null;
     }
-    public void UpdateProfessionnel(int id,String nom, String email, String mt, int numtel, String ville, String description) {
+    public void UpdateProfessionnel(int id,String nom, String email, String mt, int numtel, String ville, String description,Bitmap image) {
 
         String where="id=?";
         String[] whereArgs = new String[] {String.valueOf(id)};
@@ -234,12 +234,17 @@ public class Helper extends SQLiteOpenHelper {
 
         // on below line we are passing all values
         // along with its key and value pair.
+        Bitmap profileImage=image;
+        byteArrayOutputStream= new ByteArrayOutputStream();
+        profileImage.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        imageInBytes=byteArrayOutputStream.toByteArray();
         values.put(Nom_COL, nom);
         values.put(EMAIL_COL, email);
         values.put(Metier_COL, mt);
         values.put(numTel_COL, numtel);
         values.put(ville_COL, ville);
         values.put(description_COL, description);
+        values.put(image_COL, imageInBytes);
 
 
         // after adding all values we are passing

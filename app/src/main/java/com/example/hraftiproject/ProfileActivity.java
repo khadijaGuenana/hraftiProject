@@ -1,5 +1,6 @@
 package com.example.hraftiproject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -7,7 +8,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -24,6 +28,9 @@ public class ProfileActivity extends AppCompatActivity {
     Button btnSubmit,btnCancel;
     LoginActivity login=new LoginActivity();
     ImageView imageView;
+    Uri imagePath;
+    Bitmap imageToStore;
+    private static final int PICK_IMAGE_REQUEST=99;
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -72,12 +79,18 @@ public class ProfileActivity extends AppCompatActivity {
         phone.setText(String.valueOf(user.getPhone()));
         edit_phone.setText(String.valueOf(user.getPhone()));
         imageView.setImageBitmap(user.getImage());
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnSubmit.setVisibility(View.VISIBLE);
+                btnCancel.setVisibility(View.VISIBLE);
+                choseImage();
+            }
+        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (login.IsLoged() ) {
             SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
             String str = sh.getString("useremail", "");
-            System.out.println(email.getText());
-            System.out.println(str);
             if(str.equals(email.getText())){
                 name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -146,7 +159,8 @@ public class ProfileActivity extends AppCompatActivity {
                             , edit_metier.getText().toString()
                             , Integer.parseInt(edit_phone.getText().toString())
                             , edit_ville.getText().toString()
-                            , edit_description.getText().toString()
+                            , edit_description.getText().toString(),
+                            imageToStore
                     );
                     user = helper.getUser(edit_email.getText().toString());
                     nameC.setText(user.getName());
@@ -209,6 +223,33 @@ public class ProfileActivity extends AppCompatActivity {
                     activity.getCurrentFocus().getWindowToken(),
                     0
             );
+        }
+    }
+
+    private void choseImage() {
+        try{
+            Intent intent=new Intent();
+            intent.setType("image/*");
+            intent.setAction(intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent,PICK_IMAGE_REQUEST);
+        }catch(Exception e)
+        {
+            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        try{
+            super.onActivityResult(requestCode, resultCode, data);
+            if(requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data !=null && data.getData()!=null)
+            {
+                imagePath=data.getData();
+                imageToStore= MediaStore.Images.Media.getBitmap(getContentResolver(),imagePath);
+                imageView.setImageBitmap(imageToStore);
+            }
+        }catch(Exception e)
+        {
+
         }
     }
 }
