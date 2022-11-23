@@ -1,88 +1,153 @@
 package com.example.hraftiproject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-public class InscriptionActivity extends AppCompatActivity {
+import com.google.android.material.textfield.TextInputLayout;
 
+public class InscriptionActivity extends AppCompatActivity  {
 
+    private EditText nomEdt ,emailEdt,passwordEdt,villeEdt,numtelEdt,descriptionEdt ,passwordEdtConf;
+    private Button submitBtn ;
+    private Spinner dropdown;
+    //insertion image
+    private ImageView profileImage;
+    private static final int PICK_IMAGE_REQUEST=99;
+    Uri imagePath;
+    Bitmap imageToStore;
 
-    // creating variables for our edittext, button and dbhandler
-    private EditText nomEdt ,emailEdt,passwordEdt,metierEdt,villeEdt,numtelEdt,descriptionEdt;
-    private Button submitBtn ,Inscrption;
     private Helper helper;
+    String[] items = new String[]{ "Agriculteur","Boucher", "Boulanger", "Chauffeur","Cuisinier", "Femme de menage",
+            "Menuisier","Mécanicien","Jardinier",
+            "Peintre", "Photographe",  "Plombier"
+            ,"Serveur"};
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription2);
+        //insertion image
+        profileImage =findViewById(R.id.profile);
 
-        // initializing all our variables.
         nomEdt=findViewById(R.id.nom);
         emailEdt=findViewById(R.id.email);
-        passwordEdt=findViewById(R.id.passwordEdite);
-        metierEdt=findViewById(R.id.metier);
+        passwordEdt=findViewById(R.id.password);
+        passwordEdtConf=findViewById(R.id.passwordConf);
         villeEdt=findViewById(R.id.ville);
         numtelEdt=findViewById(R.id.numtel);
         descriptionEdt=findViewById(R.id.description);
         submitBtn=findViewById(R.id.submit);
+        dropdown = findViewById(R.id.spinner1);
 
-        // creating a new dbhandler class
-        // and passing our context to it.
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapter);
+
+
         helper = new Helper(InscriptionActivity.this);
+        //insertion image
+        //chose image from device
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choseImage();
+            }
+        });
 
-
-        // below line is to add on click listener for our add course button.
+        /////////////
         submitBtn.setOnClickListener(v -> {
 
             // below line is to get data from all edit text fields.
             String  nom=nomEdt.getText().toString();
             String email = emailEdt.getText().toString();
             String password=  passwordEdt.getText().toString();
-            String metier= metierEdt.getText().toString() ;
+            String passwordConf=  passwordEdtConf.getText().toString();
             String ville=  villeEdt.getText().toString();
             int numtel= Integer.parseInt(numtelEdt.getText().toString());
             String description= descriptionEdt.getText().toString();
+           String spinner_data = dropdown.getSelectedItem().toString();
+           //
+           // BitmapDrawable image=     profileImage.getDrawable().getBitmap().getBitmap().getBitmap() ;
 
             // validating if the text fields are empty or not.
-            if (nom.isEmpty() && email.isEmpty() && password.isEmpty() && metier.isEmpty() && ville.isEmpty() && description.isEmpty() ) {
-                Toast.makeText(InscriptionActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
-                return;
+            if (nom.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConf.isEmpty()  ||spinner_data.isEmpty() || ville.isEmpty() || description.isEmpty() ) {
+                Toast.makeText(getApplicationContext(), "Fields can't be blank", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
+
+            }else if (!password.equals(passwordConf)){
+                Toast.makeText(getApplicationContext(), "Password and confirm password should match login ..", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
+
+            }else{
+
+                try{
+                    helper.addNewProfessionnel( nom ,email,password,spinner_data,numtel,ville ,description ,imageToStore);
+                    Toast.makeText(InscriptionActivity.this, "Registration Successfully", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(InscriptionActivity.this,LoginActivity.class);
+                    startActivity(i);
+                }catch (Exception E){
+                     Toast.makeText(getApplicationContext(),"registration user failed ! " + E, Toast.LENGTH_LONG).show();
+
+                }
+
             }
-            // on below line we are calling a method to add new
-            // course to sqlite data and pass all our values to it.
-            // professionnel professionnel=new professionnel(nom ,email,password,metier,ville ,numtel,description );
-            try{
-                helper.addNewProfessionnel( nom ,email,password,metier,numtel,ville ,description);
-                Toast.makeText(InscriptionActivity.this, "Professionnel has been added.", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(i);
-            }catch (Exception E){
-                Toast.makeText(InscriptionActivity.this, "error.", Toast.LENGTH_SHORT).show();
-
-                System.out.println("error "+E);
-            }
-
-
-            // after adding the data we are displaying a toast message.
-
-//            nomEdt.setText("");
-//            emailEdt.setText("");
-//            passwordEdt.setText("");
-//            metierEdt.setText("");
-//            villeEdt.setText("");
-//            numtelEdt.setText("");
-//            descriptionEdt.setText("");
 
 
         });
 
+
+
+
+
+
     }
+    //insertion image
+    private void choseImage() {
+        try{
+            Intent intent=new Intent();
+            intent.setType("image/*");
+            intent.setAction(intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent,PICK_IMAGE_REQUEST);
+        }catch(Exception e)
+        {
+            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        try{
+            super.onActivityResult(requestCode, resultCode, data);
+            if(requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data !=null && data.getData()!=null)
+            {
+                imagePath=data.getData();
+                imageToStore= MediaStore.Images.Media.getBitmap(getContentResolver(),imagePath);
+                profileImage.setImageBitmap(imageToStore);
+            }
+        }catch(Exception e)
+        {
+
+        }
+    }
+    public void Login(View view){
+        Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+        startActivity(i);
+
+
+    }
+
 
 }
