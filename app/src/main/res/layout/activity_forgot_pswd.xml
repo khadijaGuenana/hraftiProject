@@ -8,24 +8,16 @@
     tools:context=".ForgotPswdActivity">
 
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.7"
-        android:contentDescription="pagefp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/pagefg" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout4"
         android:layout_width="358dp"
         android:layout_height="46dp"
+        android:layout_below="@+id/layout5"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="271dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginEnd="36dp"
         android:background="@drawable/radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +33,7 @@
             android:background="@android:color/transparent"
             android:backgroundTint="#FCC31C"
             android:ems="10"
-            android:hint="@string/enter_votre_email"
+            android:hint="@string/entrer_votre_email"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:textAlignment="center"
@@ -49,7 +41,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,TextContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
@@ -63,6 +55,31 @@
         android:layout_marginTop="23dp"
         android:layout_marginEnd="87dp"
         android:backgroundTint="#FCC31C"
-        android:text="Valider" />
+        android:text="@string/valider" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout5"
+        android:layout_width="171dp"
+        android:layout_height="117dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="134dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/circle">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="74dp"
+            android:layout_height="58dp"
+            android:contentDescription="@string/Imagelg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/image1"
+            tools:ignore="ImageContrastCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
