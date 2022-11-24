@@ -7,6 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -71,23 +74,6 @@ public class Helper extends SQLiteOpenHelper {
 
         db.execSQL(query);
 
-       /*
-        String ROW1 = "INSERT INTO " + TABLE_NAME + " ("
-                + Nom_COL + ", " + EMAIL_COL + ", "
-                + PASSWORD_COL + ", " + Metier_COL + ", "
-                +numTel_COL+", " + ville_COL + ","
-                + description_COL +")  Values ('nom prenom'," +
-                " 'email1@gmail.com', 'password', 'metier1', " +
-                "'0612457893' ,'marrakech' ,'description du metier')";
-        db.execSQL(ROW1);
-        String ROW2 = "INSERT INTO " + TABLE_NAME + " ("
-                + Nom_COL + ", " + EMAIL_COL + ", "
-                + PASSWORD_COL + ", " + Metier_COL + ", "
-                +numTel_COL+", " + ville_COL + ","
-                + description_COL +")  Values ('nom prenom2'," +
-                " 'email2@gmail.com', 'password', 'metier2', " +
-                "'0714895263' ,'agadir' ,'description du metier2')";
-        db.execSQL(ROW2); */
     }
 
     // this method is use to add new Professionnel to our sqlite database.
@@ -118,17 +104,10 @@ public class Helper extends SQLiteOpenHelper {
         values.put(image_COL, imageInBytes);
 
         // after adding all values we are passing content values to our table.
-        Long checkifQueryRun =db.insert(TABLE_NAME, null, values);
+        db.insert(TABLE_NAME, null, values);
+       // Long checkifQueryRun =db.insert(TABLE_NAME, null, values);
+        db.close();
 
-         if (checkifQueryRun !=-1 ){
-             Toast.makeText(context.getApplicationContext(),"table added successfully",Toast.LENGTH_SHORT).show();
-             // at last we are closing our  database after adding database.
-
-             db.close();
-         }else{
-             Toast.makeText(context.getApplicationContext(),"fail to add",Toast.LENGTH_SHORT).show();
-
-         }
 
     }
 
@@ -178,6 +157,7 @@ public class Helper extends SQLiteOpenHelper {
             String description = cursor.getString(7);
 
 
+
             User user = new User(Name, Email, Metier, ville, description, phone);
             arrayList.add(user);
         }
@@ -195,11 +175,10 @@ public class Helper extends SQLiteOpenHelper {
             Cursor cursor = db.rawQuery(sql, null);
 
             User user = new User();
-
-
             // Read data, I simplify cursor in one line
             if (cursor.moveToFirst()) {
-
+                byte[] imgByte = cursor.getBlob(8);
+                Bitmap image=BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
                 // Get imageData in byte[]. Easy, right?
                 user.setId(cursor.getInt(0));
                 user.setName(cursor.getString(1));
@@ -208,8 +187,7 @@ public class Helper extends SQLiteOpenHelper {
                 user.setPhone(cursor.getInt(5));
                 user.setVille(cursor.getString(6));
                 user.setDescription(cursor.getString(7));
-
-
+                user.setImage(image);
             }
             cursor.close();
             db.close();
@@ -220,7 +198,7 @@ public class Helper extends SQLiteOpenHelper {
         }
         return null;
     }
-    public void UpdateProfessionnel(int id,String nom, String email, String mt, int numtel, String ville, String description) {
+    public void UpdateProfessionnel(int id,String nom, String email, String mt, int numtel, String ville, String description,Bitmap image) {
 
         String where="id=?";
         String[] whereArgs = new String[] {String.valueOf(id)};
@@ -235,12 +213,17 @@ public class Helper extends SQLiteOpenHelper {
 
         // on below line we are passing all values
         // along with its key and value pair.
+        Bitmap profileImage=image;
+        byteArrayOutputStream= new ByteArrayOutputStream();
+        profileImage.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        imageInBytes=byteArrayOutputStream.toByteArray();
         values.put(Nom_COL, nom);
         values.put(EMAIL_COL, email);
         values.put(Metier_COL, mt);
         values.put(numTel_COL, numtel);
         values.put(ville_COL, ville);
         values.put(description_COL, description);
+        values.put(image_COL, imageInBytes);
 
 
         // after adding all values we are passing
@@ -256,12 +239,15 @@ public class Helper extends SQLiteOpenHelper {
         ArrayList<JobModel> jobModelArrayList = new ArrayList<>();
 
         while (cursorJobs.moveToNext()){
+            byte[] imgByte = cursorJobs.getBlob(8);
+            Bitmap image=BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
             jobModelArrayList.add(new JobModel(
                     cursorJobs.getString(4),
                     cursorJobs.getString(1),
                     cursorJobs.getString(5),
                     cursorJobs.getString(6),
-                    cursorJobs.getString(2)));
+                    cursorJobs.getString(2),
+                    image));
         }
 
         cursorJobs.close();
@@ -274,12 +260,16 @@ public class Helper extends SQLiteOpenHelper {
         ArrayList<JobModel> jobs = new ArrayList<JobModel>();
 
         while (cursorJobs.moveToNext()){
+            byte[] imgByte = cursorJobs.getBlob(8);
+            Bitmap image=BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
             jobs.add(new JobModel(
                     cursorJobs.getString(4),
                     cursorJobs.getString(1),
                     cursorJobs.getString(5),
                     cursorJobs.getString(6),
-                    cursorJobs.getString(2)
+                    cursorJobs.getString(2),
+                   image
+
                     ));
         }
 

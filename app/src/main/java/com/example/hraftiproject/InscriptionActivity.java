@@ -6,21 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Patterns;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputLayout;
+
 
 public class InscriptionActivity extends AppCompatActivity  {
 
@@ -63,12 +61,7 @@ public class InscriptionActivity extends AppCompatActivity  {
         helper = new Helper(InscriptionActivity.this);
         //insertion image
         //chose image from device
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                choseImage();
-            }
-        });
+        profileImage.setOnClickListener(view -> choseImage());
 
         /////////////
         submitBtn.setOnClickListener(v -> {
@@ -80,19 +73,29 @@ public class InscriptionActivity extends AppCompatActivity  {
             String passwordConf=  passwordEdtConf.getText().toString();
             String ville=  villeEdt.getText().toString();
             int numtel= Integer.parseInt(numtelEdt.getText().toString());
+            String num = numtelEdt.getText().toString() ;
             String description= descriptionEdt.getText().toString();
            String spinner_data = dropdown.getSelectedItem().toString();
            //
-           // BitmapDrawable image=     profileImage.getDrawable().getBitmap().getBitmap().getBitmap() ;
 
             // validating if the text fields are empty or not.
-            if (nom.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConf.isEmpty()  ||spinner_data.isEmpty() || ville.isEmpty() || description.isEmpty() ) {
+            if (nom.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConf.isEmpty()  ||spinner_data.isEmpty() || ville.isEmpty() || description.isEmpty() ||num.isEmpty() ) {
                 Toast.makeText(getApplicationContext(), "Fields can't be blank", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
 
             }else if (!password.equals(passwordConf)){
                 Toast.makeText(getApplicationContext(), "Password and confirm password should match login ..", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
+                  //verifier format de e-mail
+            }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
 
-            }else{
+
+                {
+                    Toast.makeText(this, "Email not correct !", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+            }else {
 
                 try{
                     helper.addNewProfessionnel( nom ,email,password,spinner_data,numtel,ville ,description ,imageToStore);
