@@ -59,11 +59,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout5"
-        android:layout_width="118dp"
-        android:layout_height="118dp"
+        android:layout_width="wrap_content"
+        android:layout_height="98dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="150dp"
         android:layout_marginTop="80dp"
+        android:layout_marginEnd="157dp"
         android:background="@drawable/circle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
@@ -71,17 +73,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
-    <ImageView
-        android:id="@+id/imagelogo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/image1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ImageContrastCheck" />
+        <ImageView
+            android:id="@+id/imagelogo"
+            android:layout_width="92dp"
+            android:layout_height="94dp"
+            android:src="@drawable/image1"
+            tools:ignore="ImageContrastCheck"
+            tools:layout_editor_absoluteX="6dp"
+            tools:layout_editor_absoluteY="2dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
