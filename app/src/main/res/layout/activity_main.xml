@@ -24,7 +24,7 @@
         android:layout_margin="3dp"
         android:orientation="vertical"
 
-       android:background="@drawable/back"
+
        >
 
         <TextView
@@ -69,7 +69,7 @@
                 android:fontFamily="@font/police1" />
 
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginLeft="255dp"
