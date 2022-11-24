@@ -49,6 +49,7 @@ public class MyAdapter  extends RecyclerView.Adapter<MainActivity.ViewHolder> {
         holder.name.setText(modal.getName());
         holder.number.setText(modal.getNumber());
         holder.city.setText(modal.getCity());
+        holder.image.setImageBitmap(modal.getImage());
 
 
     }

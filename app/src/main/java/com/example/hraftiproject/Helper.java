@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -237,12 +239,15 @@ public class Helper extends SQLiteOpenHelper {
         ArrayList<JobModel> jobModelArrayList = new ArrayList<>();
 
         while (cursorJobs.moveToNext()){
+            byte[] imgByte = cursorJobs.getBlob(8);
+            Bitmap image=BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
             jobModelArrayList.add(new JobModel(
                     cursorJobs.getString(4),
                     cursorJobs.getString(1),
                     cursorJobs.getString(5),
                     cursorJobs.getString(6),
-                    cursorJobs.getString(2)));
+                    cursorJobs.getString(2),
+                    image));
         }
 
         cursorJobs.close();
@@ -255,12 +260,16 @@ public class Helper extends SQLiteOpenHelper {
         ArrayList<JobModel> jobs = new ArrayList<JobModel>();
 
         while (cursorJobs.moveToNext()){
+            byte[] imgByte = cursorJobs.getBlob(8);
+            Bitmap image=BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
             jobs.add(new JobModel(
                     cursorJobs.getString(4),
                     cursorJobs.getString(1),
                     cursorJobs.getString(5),
                     cursorJobs.getString(6),
-                    cursorJobs.getString(2)
+                    cursorJobs.getString(2),
+                   image
+
                     ));
         }
 
