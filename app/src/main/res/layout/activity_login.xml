@@ -153,14 +153,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout6"
-        android:layout_width="171dp"
-        android:layout_height="112dp"
+        android:layout_width="118dp"
+        android:layout_height="118dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="132dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/circle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
@@ -168,17 +165,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
-
         <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="89dp"
-            android:layout_height="79dp"
-            android:contentDescription="@string/ImagePack"
+            android:id="@+id/imagelogo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/image1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/image1" />
+            tools:ignore="ImageContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
