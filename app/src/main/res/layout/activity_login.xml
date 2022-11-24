@@ -11,7 +11,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.6"
+        android:alpha="0.7"
         android:contentDescription="TODO"
         android:scaleType="centerCrop"
         android:src="@drawable/handyman" />
@@ -37,8 +37,9 @@
             android:hint="@string/email"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
-            android:textColor="#7E7B7B"
-            android:textColorHint="#000000"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textColorHint="#807D7D"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,9 +70,10 @@
             android:background="@android:color/transparent"
             android:hint="@string/mot_de_passe"
             android:inputType="textPassword"
-            android:textColor="#888787"
-            android:textColorHint="#000000"
+            android:textAlignment="center"
+            android:textColor="#000000"
 
+            android:textColorHint="#807D7D"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -159,7 +161,7 @@
         android:layout_marginStart="105dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="92dp"
-        app:srcCompat="@drawable/photo" />
+        app:srcCompat="@drawable/photo_low" />
 
     <TextView
         android:id="@+id/nonInscrie"

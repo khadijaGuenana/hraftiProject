@@ -20,4 +20,6 @@
     <string name="nonInscrie">vous n\'êtes pas encore inscrit ?</string>
 
     <string name="select">Select Item</string>
+    <string name="imagelogo">ImageLogo</string>
+    <string name="pagefp">pagefp</string>
 </resources>
