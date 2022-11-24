@@ -6,6 +6,9 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.IntentFilter;
+import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import android.content.Context;
@@ -35,8 +38,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
+
 
 
         jobModalArrayList = new ArrayList<>();
@@ -50,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
         dbHandler = new Helper(this);
         listView = findViewById(R.id.idRC);
         Actualiser("");
+
+        androidx.appcompat.app.ActionBar actionBar= getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        LayoutInflater inflater =(LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.logo_image,null);
+        actionBar.setCustomView(view);
 
 
 

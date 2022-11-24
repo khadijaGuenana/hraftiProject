@@ -15,6 +15,14 @@
         android:theme="@style/Theme.HraftiProject"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".InscriptionActivity"
             android:exported="false"
             android:label="Inscription">
@@ -23,10 +31,12 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:label="All Jobs"
+            android:name=".MainActivity2"
             android:colorMode="hdr"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Design.NoActionBar"
+            android:label="7refti"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,6 +51,7 @@
             android:name=".ProfileActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
