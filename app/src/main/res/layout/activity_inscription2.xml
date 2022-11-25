@@ -16,30 +16,67 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
-    <ImageView
-        android:id="@+id/profile"
-        android:layout_width="120dp"
-        android:layout_height="90dp"
-        app:srcCompat="@drawable/ic_user"
-        />
+            <ImageView
+            android:id="@+id/profile"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            app:srcCompat="@drawable/add_a_photo"
+            />
+             <TextView
+                 android:layout_width="300dp"
+                 android:layout_height="20dp"
+                 android:text="Importer une image"
+                 android:textAlignment="center"
+                 android:textColor="@color/black"
+                 android:textSize="15dp"
+                 android:textStyle="bold"
+                 >
 
-    <EditText
-        android:id="@+id/nom"
-        android:layout_width="330dp"
-        android:layout_height="56dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="-3dp"
+             </TextView>
 
-        android:hint="Nom complet" />
+            <androidx.constraintlayout.widget.ConstraintLayout
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="330dp"
-        android:layout_height="56dp"
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="66dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginEnd="65dp"
+
+                android:background="@drawable/radius"
+                android:soundEffectsEnabled="false">
+
+                <EditText
+                    android:id="@+id/nom"
+                    android:layout_width="330dp"
+                    android:layout_height="56dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="66dp"
+                    android:layout_marginTop="54dp"
+                    android:layout_marginEnd="65dp"
+                    android:hint="Nom complet"
+                    tools:layout_editor_absoluteY="4dp"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/layout1"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="66dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginEnd="65dp"
+                android:background="@drawable/radius"
+                android:soundEffectsEnabled="false">
+                <EditText
+                android:id="@+id/email"
+                android:layout_width="330dp"
+                android:layout_height="56dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -48,7 +85,19 @@
         android:layout_marginEnd="-3dp"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="66dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginEnd="65dp"
+                android:background="@drawable/radius"
+                android:soundEffectsEnabled="false"
+                app:passwordToggleEnabled="true">
 
     <EditText
         android:id="@+id/password"
@@ -61,8 +110,21 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="-3dp"
         android:hint="Password"
-        android:inputType="textPassword" />
-
+        android:drawableRight="@drawable/visibility_off"
+        android:inputType="textPassword"
+        tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/layout1"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="66dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginEnd="65dp"
+                android:background="@drawable/radius"
+                android:soundEffectsEnabled="false">
     <EditText
         android:id="@+id/passwordConf"
         android:layout_width="330dp"
@@ -74,9 +136,23 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="-3dp"
         android:hint="Confirmer password"
-        android:inputType="textPassword" />
+        android:drawableRight="@drawable/visibility_off"
+        android:inputType="textPassword"
+        tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
 
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/layout1"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="66dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginEnd="65dp"
+                android:background="@drawable/radius"
+                android:soundEffectsEnabled="false">
     <EditText
         android:id="@+id/ville"
         android:layout_width="330dp"
@@ -88,38 +164,71 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="-3dp"
         android:hint="Ville"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="66dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginEnd="65dp"
+                android:background="@drawable/radius"
+                android:soundEffectsEnabled="false">
+               <EditText
+               android:id="@+id/numtel"
+               android:layout_width="330dp"
+               android:layout_height="56dp"
+               android:layout_alignParentStart="true"
+               android:layout_alignParentTop="true"
+               android:layout_alignParentEnd="true"
+               android:layout_marginStart="3dp"
+               android:layout_marginTop="0dp"
+               android:layout_marginEnd="-3dp"
+               android:hint="Numero de telephone"
+               android:inputType="phone"
+               tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/layout1"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="66dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginEnd="65dp"
+                android:background="@drawable/radius"
+                android:soundEffectsEnabled="false">
+               <Spinner
+               android:id="@+id/spinner1"
+               android:layout_width="330dp"
+               android:layout_height="56dp"
+               android:layout_alignParentStart="true"
+               android:layout_alignParentTop="true"
+               android:layout_alignParentEnd="true"
+               android:layout_marginStart="3dp"
+               android:layout_marginTop="0dp"
+               android:layout_marginEnd="-3dp"
+               android:drawablePadding="10dp"
+               android:elevation="5dp"
+               android:spinnerMode="dropdown"
+               tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/numtel"
-        android:layout_width="330dp"
-        android:layout_height="56dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="-3dp"
-        android:hint="Numero de telephone"
-        android:inputType="phone"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="330dp"
-        android:layout_height="56dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="-3dp"
-        android:drawablePadding="10dp"
-        android:elevation="5dp"
-        android:spinnerMode="dropdown"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/layout1"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="66dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginEnd="65dp"
+                android:background="@drawable/radius"
+                android:soundEffectsEnabled="false">
     <EditText
         android:id="@+id/description"
         android:layout_width="330dp"
@@ -133,8 +242,9 @@
 
         android:gravity="start|top"
         android:hint="Description"
-        android:inputType="textMultiLine" />
-
+        android:inputType="textMultiLine"
+        tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
     <Button
         android:id="@+id/submit"
         android:layout_width="200dp"
