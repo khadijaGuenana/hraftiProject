@@ -80,8 +80,11 @@ android:background="@drawable/back"
             android:textStyle="bold"
             tools:ignore="TouchTargetSizeCheck" />
 
+
+
     </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 
 
 

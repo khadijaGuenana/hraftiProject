@@ -3,10 +3,12 @@ package com.example.hraftiproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.view.Gravity;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
 
@@ -78,13 +81,18 @@ public class MainActivity extends AppCompatActivity {
         MyAdapter job = new MyAdapter(jobs);
         listView.setAdapter((RecyclerView.Adapter) job);
      }
-
+    @SuppressLint("RestrictedApi")
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
 
         inflater.inflate(R.menu.menu, menu);
         //
+        if(menu instanceof MenuBuilder){
+            MenuBuilder m = (MenuBuilder) menu;
+            m.setOptionalIconsVisible(true);
+        }
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setQueryHint("Saisissez un metier ");
         MenuItem i=menu.findItem(R.id.inscription);

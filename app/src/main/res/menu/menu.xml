@@ -5,27 +5,31 @@
     >
 
     <item
+        app:showAsAction="never"
         android:id="@+id/profil"
         android:icon="@drawable/ic_baseline_account_circle_24"
         android:title="Profil"
 
 
 
-        app:showAsAction="never" />
+         />
     <item
         android:id="@+id/home"
         android:title="Deconnexion"
         app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_logout_24"
 
         />
     <item
         android:id="@+id/inscription"
         android:title="S'inscrire"
         app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_app_registration_24"
         tools:ignore="DuplicateIds" />
     <item
         android:id="@+id/login"
         android:title="Login"
+        android:icon="@drawable/ic_baseline_login_24"
         app:showAsAction="never"
 
         />

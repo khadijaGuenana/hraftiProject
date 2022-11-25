@@ -7,6 +7,8 @@ public class User {
     int phone,id;
     Bitmap image;
 
+
+
     public void setImage(Bitmap image) {
         this.image = image;
     }
@@ -81,5 +83,14 @@ public class User {
 
     public void setEmail(String email) {
         Email = email;
+    }
+
+    public User(String name, String email, String metier, String ville, Bitmap image,int number) {
+        Name = name;
+        Email = email;
+        Metier = metier;
+        this.phone= number;
+        this.ville = ville;
+        this.image = image;
     }
 }

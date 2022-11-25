@@ -62,13 +62,9 @@ public class ProfileActivity extends AppCompatActivity {
         btnSubmit=findViewById(R.id.submit);
         btnCancel=findViewById(R.id.cancel);
         imageView=findViewById(R.id.profileImage);
-        System.out.println(
-                user.getName()
-        );
         Intent i = getIntent();
         email.setText(i.getStringExtra("useremail"));
         String userEmail = email.getText().toString();
-        System.out.println("email "+userEmail);
         user = helper.getUser(userEmail);
         nameC.setText(user.getName());
         name.setText(user.getName());
