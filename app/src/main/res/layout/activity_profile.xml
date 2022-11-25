@@ -18,22 +18,23 @@
 
             <RelativeLayout
                 android:id="@+id/imgUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp">
+                android:layout_width="match_parent"
+                android:layout_height="284dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="1dp">
 
                 <ImageView
                     android:id="@+id/profileImage"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="392dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="9dp"
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="9dp"
                     android:adjustViewBounds="true"
                     android:padding="3dp"
-                    android:scaleType="centerInside"
+                    android:scaleType="centerCrop"
+
                     android:src="@drawable/man" />
 
             </RelativeLayout>
@@ -74,9 +75,9 @@
                 android:layout_marginStart="72dp"
                 android:layout_marginTop="80dp"
                 android:layout_marginEnd="224dp"
-                android:visibility="gone"
                 android:onClick="submit"
-                android:text="Submit" />
+                android:text="Submit"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/cancel"
@@ -89,9 +90,9 @@
                 android:layout_marginTop="80dp"
                 android:layout_marginEnd="74dp"
                 android:backgroundTint="@color/red"
-                android:visibility="gone"
                 android:onClick="cancel"
-                android:text="Cancel" />
+                android:text="Cancel"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"

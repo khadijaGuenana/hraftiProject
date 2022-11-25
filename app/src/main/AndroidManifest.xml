@@ -26,8 +26,9 @@
         </activity>
         <activity
             android:name=".InscriptionActivity"
+            android:parentActivityName=".LoginActivity"
             android:exported="false"
-            android:label="Inscription"
+            android:label=""
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.app.lib_name"
@@ -64,6 +65,7 @@
         <activity
             android:name=".ForgotPswdActivity"
             android:screenOrientation="portrait"
+            android:parentActivityName=".LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -71,7 +73,9 @@
         </activity>
         <activity
             android:name=".ResetPasswordActivity"
+            android:parentActivityName=".LoginActivity"
             android:screenOrientation="portrait"
+            android:label=""
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -79,7 +83,9 @@
         </activity>
         <activity
             android:name=".LoginActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
+            android:label=""
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
