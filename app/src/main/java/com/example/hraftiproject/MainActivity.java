@@ -6,11 +6,15 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.IntentFilter;
+import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +24,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,8 +40,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
+
 
 
         jobModalArrayList = new ArrayList<>();
@@ -50,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
         dbHandler = new Helper(this);
         listView = findViewById(R.id.idRC);
         Actualiser("");
+
+        androidx.appcompat.app.ActionBar actionBar= getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        LayoutInflater inflater =(LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.logo_image,null);
+        actionBar.setCustomView(view);
 
 
 
@@ -142,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
         public TextView name;
         public TextView number;
         public TextView city;
+        public ImageView image;
         String email;
 
 
@@ -152,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
             name = itemView.findViewById(R.id.textname);
             number = itemView.findViewById(R.id.textnumber);
             city = itemView.findViewById(R.id.textcity);
+           image = itemView.findViewById(R.id.image_profile);
 
 
             itemView.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {

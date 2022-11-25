@@ -8,26 +8,39 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/image"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HraftiProject"
         tools:targetApi="31">
         <activity
-            android:name=".InscriptionActivity"
+            android:name=".MainActivity"
             android:exported="false"
-            android:label="Inscription">
+            android:label=""
+            android:screenOrientation="portrait"
+            >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:label="All Jobs"
+            android:name=".InscriptionActivity"
+            android:exported="false"
+            android:label="Inscription"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".MainActivity2"
+            android:screenOrientation="portrait"
             android:colorMode="hdr"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Design.NoActionBar"
+            android:label="7refti"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,14 +53,17 @@
         </activity>
         <activity
             android:name=".ProfileActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:parentActivityName=".MainActivity">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ForgotPswdActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -55,6 +71,7 @@
         </activity>
         <activity
             android:name=".ResetPasswordActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -62,13 +79,8 @@
         </activity>
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
