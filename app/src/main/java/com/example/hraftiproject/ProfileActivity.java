@@ -86,19 +86,21 @@ public class ProfileActivity extends AppCompatActivity {
         edit_phone.setText(String.valueOf(user.getPhone()));
         imageView.setImageBitmap(user.getImage());
         imageToStore=user.getImage();
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnSubmit.setVisibility(View.VISIBLE);
-                btnCancel.setVisibility(View.VISIBLE);
-                choseImage();
-            }
-        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (login.IsLoged() ) {
             SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
             String str = sh.getString("useremail", "");
+
             if(str.equals(email.getText())){
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        btnSubmit.setVisibility(View.VISIBLE);
+                        btnCancel.setVisibility(View.VISIBLE);
+                        choseImage();
+                    }
+                });
                 name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

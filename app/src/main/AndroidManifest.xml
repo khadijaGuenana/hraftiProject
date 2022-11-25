@@ -56,7 +56,8 @@
             android:name=".ProfileActivity"
             android:screenOrientation="portrait"
             android:exported="false"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:label="">
 
             <meta-data
                 android:name="android.app.lib_name"
