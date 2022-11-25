@@ -85,19 +85,20 @@ public class ProfileActivity extends AppCompatActivity {
         phone.setText(String.valueOf(user.getPhone()));
         edit_phone.setText(String.valueOf(user.getPhone()));
         imageView.setImageBitmap(user.getImage());
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnSubmit.setVisibility(View.VISIBLE);
-                btnCancel.setVisibility(View.VISIBLE);
-                choseImage();
-            }
-        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (login.IsLoged() ) {
             SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
             String str = sh.getString("useremail", "");
             if(str.equals(email.getText())){
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        btnSubmit.setVisibility(View.VISIBLE);
+                        btnCancel.setVisibility(View.VISIBLE);
+                        choseImage();
+                    }
+                });
                 name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -233,18 +234,21 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void choseImage() {
-        try{
-            Intent intent=new Intent();
-            intent.setType("image/*");
-            intent.setAction(intent.ACTION_GET_CONTENT);
-            startActivityForResult(intent,PICK_IMAGE_REQUEST);
-        }catch(Exception e)
-        {
-            Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
-        }
+
+                try {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent, PICK_IMAGE_REQUEST);
+
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+                }
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         try{
             super.onActivityResult(requestCode, resultCode, data);
             if(requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data !=null && data.getData()!=null)
