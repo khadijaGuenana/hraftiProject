@@ -10,9 +10,13 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,9 +36,12 @@ public class InscriptionActivity extends AppCompatActivity  {
     private static final int PICK_IMAGE_REQUEST=99;
     Uri imagePath;
     Bitmap imageToStore;
+    boolean passwordVisible1 ,passwordVisible2 ; //=true
+    int increment=0 ,imageImport=0;
 
+    String item ;
     private Helper helper;
-    String[] items = new String[]{ "Agriculteur","Boucher", "Boulanger", "Chauffeur","Cuisinier", "Femme de menage",
+    String[] items = new String[]{ "sélectionner métier","Agriculteur","Boucher", "Boulanger", "Chauffeur","Cuisinier", "Femme de menage",
             "Menuisier","Mécanicien","Jardinier",
             "Peintre", "Photographe",  "Plombier"
             ,"Serveur"};
@@ -57,7 +64,26 @@ public class InscriptionActivity extends AppCompatActivity  {
         dropdown = findViewById(R.id.spinner1);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        //Drop layout style
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
         dropdown.setAdapter(adapter);
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+                if (parent.getItemAtPosition(position).equals("sélectionner métier")){
+                    increment=1;
+                }else{
+                    item=parent.getItemAtPosition(position).toString();
+                    increment=0;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                increment=1;
+            }
+        });
 
 
         helper = new Helper(InscriptionActivity.this);
@@ -65,7 +91,64 @@ public class InscriptionActivity extends AppCompatActivity  {
         //chose image from device
         profileImage.setOnClickListener(view -> choseImage());
 
-        /////////////
+        ///////////// visibility password
+        passwordEdt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                final int Right=2;
+                if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    if (motionEvent.getRawX()>=passwordEdt.getRight()-passwordEdt.getCompoundDrawables()[Right].getBounds().width()){
+                        int selection=passwordEdt.getSelectionEnd();
+                        if(passwordVisible1){
+                            //set drawable image here
+                            passwordEdt.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.visibility_off,0);
+                            //for hide password
+                            passwordEdt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            passwordVisible1=false;
+                        }else{
+                            //set drawable image here
+                            passwordEdt.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.visibility,0);
+                            //for show password
+                            passwordEdt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            passwordVisible1=true;
+
+                        }
+                        passwordEdt.setSelection(selection);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        passwordEdtConf.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                final int Right=2;
+                if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    if (motionEvent.getRawX()>=passwordEdtConf.getRight()-passwordEdtConf.getCompoundDrawables()[Right].getBounds().width()){
+                        int selection=passwordEdtConf.getSelectionEnd();
+                        if(passwordVisible2){
+                            //set drawable image here
+                            passwordEdtConf.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.visibility_off,0);
+                            //for hide password
+                            passwordEdtConf.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            passwordVisible2=false;
+                        }else{
+                            //set drawable image here
+                            passwordEdtConf.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.visibility,0);
+                            //for show password
+                            passwordEdtConf.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            passwordVisible2=true;
+
+                        }
+                        passwordEdtConf.setSelection(selection);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
         submitBtn.setOnClickListener(v -> {
 
             // below line is to get data from all edit text fields.
@@ -77,35 +160,34 @@ public class InscriptionActivity extends AppCompatActivity  {
             int numtel= Integer.parseInt(numtelEdt.getText().toString());
             String num = numtelEdt.getText().toString() ;
             String description= descriptionEdt.getText().toString();
-           String spinner_data = dropdown.getSelectedItem().toString();
            //
 
             // validating if the text fields are empty or not.
-            if (nom.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConf.isEmpty()  ||spinner_data.isEmpty() || ville.isEmpty() || description.isEmpty() ||num.isEmpty() ) {
-                Toast.makeText(getApplicationContext(), "Fields can't be blank", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
+            if (nom.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConf.isEmpty()  || ville.isEmpty() || description.isEmpty() ||num.isEmpty() ) {
+                Toast.makeText(getApplicationContext(), "remplissez tous les champs !!", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
 
-            }else if (!password.equals(passwordConf)){
-                Toast.makeText(getApplicationContext(), "Password and confirm password should match login ..", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
+              }else if (!password.equals(passwordConf)){
+                Toast.makeText(getApplicationContext(), "le mot de passe confirmer incorrect !", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
                   //verifier format de e-mail
-            }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+              }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
 
+                    Toast.makeText(this, "E-mail incorrect!", Toast.LENGTH_SHORT).show();
+             }else if(increment ==1) {
 
-                {
-                    Toast.makeText(this, "Email not correct !", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(getApplicationContext(), " sélectionner métier..", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
+            }else if(imageImport==0){
 
-
-
+                Toast.makeText(getApplicationContext(), " Importer une image..", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
 
             }else {
 
                 try{
-                    helper.addNewProfessionnel( nom ,email,password,spinner_data,numtel,ville ,description ,imageToStore);
+                    helper.addNewProfessionnel( nom ,email,password,item,numtel,ville ,description ,imageToStore);
                     Toast.makeText(InscriptionActivity.this, "Registration Successfully", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(InscriptionActivity.this,LoginActivity.class);
                     startActivity(i);
                 }catch (Exception E){
-                     Toast.makeText(getApplicationContext(),"registration user failed ! " + E, Toast.LENGTH_LONG).show();
+                     Toast.makeText(getApplicationContext(),"registration user failed ! " , Toast.LENGTH_LONG).show();
 
                 }
 
@@ -131,20 +213,28 @@ public class InscriptionActivity extends AppCompatActivity  {
             intent.setType("image/*");
             intent.setAction(intent.ACTION_GET_CONTENT);
             startActivityForResult(intent,PICK_IMAGE_REQUEST);
+            imageImport=1;
         }catch(Exception e)
         {
             Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+            imageImport=0;
         }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         try{
             super.onActivityResult(requestCode, resultCode, data);
-            if(requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data !=null && data.getData()!=null)
+            if( data ==null || data.getData()==null){
+                imageImport=0;
+
+            }
+            else if(requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data !=null && data.getData()!=null )//&& data !=null && data.getData()!=null
             {
                 imagePath=data.getData();
                 imageToStore= MediaStore.Images.Media.getBitmap(getContentResolver(),imagePath);
                 profileImage.setImageBitmap(imageToStore);
+                imageImport=1;
+
             }
         }catch(Exception e)
         {
