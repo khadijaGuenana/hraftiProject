@@ -12,11 +12,13 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,11 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        androidx.appcompat.app.ActionBar actionBar= getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        LayoutInflater inflater =(LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.logo_image,null);
+        actionBar.setCustomView(view);
         helper = new Helper(getApplicationContext());
         user = new User();
         nameC = findViewById(R.id.input_name);
@@ -62,7 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
         Intent i = getIntent();
         email.setText(i.getStringExtra("useremail"));
         String userEmail = email.getText().toString();
-        System.out.println(userEmail);
+        System.out.println("email "+userEmail);
         user = helper.getUser(userEmail);
         nameC.setText(user.getName());
         name.setText(user.getName());
@@ -79,19 +86,22 @@ public class ProfileActivity extends AppCompatActivity {
         phone.setText(String.valueOf(user.getPhone()));
         edit_phone.setText(String.valueOf(user.getPhone()));
         imageView.setImageBitmap(user.getImage());
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnSubmit.setVisibility(View.VISIBLE);
-                btnCancel.setVisibility(View.VISIBLE);
-                choseImage();
-            }
-        });
+        imageToStore=user.getImage();
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (login.IsLoged() ) {
             SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
             String str = sh.getString("useremail", "");
+
             if(str.equals(email.getText())){
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        btnSubmit.setVisibility(View.VISIBLE);
+                        btnCancel.setVisibility(View.VISIBLE);
+                        choseImage();
+                    }
+                });
                 name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
