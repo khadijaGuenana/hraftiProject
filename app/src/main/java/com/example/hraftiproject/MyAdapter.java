@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 
 
-public class MyAdapter  extends RecyclerView.Adapter<MainActivity.ViewHolder> {
+public class MyAdapter  extends RecyclerView.Adapter<HomeActivity.ViewHolder> {
 
 
     private Helper dbHelper;
@@ -35,15 +35,15 @@ public class MyAdapter  extends RecyclerView.Adapter<MainActivity.ViewHolder> {
 
     @NonNull
     @Override
-    public MainActivity.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HomeActivity.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main, parent, false);
-        return new MainActivity.ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_home, parent, false);
+        return new HomeActivity.ViewHolder(view);
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull MainActivity.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HomeActivity.ViewHolder holder, int position) {
         JobModel modal = jobsArrayList.get(position);
         holder.job.setText(modal.getJob());
         holder.name.setText(modal.getName());

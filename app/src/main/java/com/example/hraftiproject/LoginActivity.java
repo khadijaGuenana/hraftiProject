@@ -1,13 +1,11 @@
 package com.example.hraftiproject;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -61,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                         Boolean checkpass = database.checkEmailPassword(user, pass);
                         if (checkpass) {
                             isLoged=true;
-                            Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                             // Storing data into SharedPreferences
                             SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
@@ -93,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         Inscrire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),InscriptionActivity.class);
+                Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(i);
             }
         });

@@ -8,11 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.MediaStore;
-import android.util.Base64;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -44,11 +39,11 @@ public class Helper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
         this.context=context;
     }
-    public Helper(InscriptionActivity context) {
+    public Helper(RegisterActivity context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-    public Helper(MainActivity context) {
+    public Helper(HomeActivity context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 

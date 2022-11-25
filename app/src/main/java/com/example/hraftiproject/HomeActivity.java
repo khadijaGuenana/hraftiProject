@@ -1,7 +1,6 @@
 package com.example.hraftiproject;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.core.view.MenuItemCompat;
@@ -9,9 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.IntentFilter;
-import android.os.Handler;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -28,10 +24,9 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.CollationElementIterator;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private ArrayList<JobModel> jobModalArrayList;
     private static Helper dbHandler;
@@ -53,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         jobModalArrayList = new ArrayList<>();
-        dbHandler = new Helper(MainActivity.this);
+        dbHandler = new Helper(HomeActivity.this);
         jobModalArrayList = dbHandler.readJobs();
-        myAdapter= new MyAdapter(jobModalArrayList, MainActivity.this);
+        myAdapter= new MyAdapter(jobModalArrayList, HomeActivity.this);
         recyclerView = findViewById(R.id.idRC);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(HomeActivity.this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(myAdapter);
         dbHandler = new Helper(this);
@@ -131,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.inscription) {
-            Intent intent = new Intent(this, InscriptionActivity.class);
+            Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
         }
         if (id == R.id.login) {
@@ -149,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.home) {
             login.Logout();
             finish();
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
 
 

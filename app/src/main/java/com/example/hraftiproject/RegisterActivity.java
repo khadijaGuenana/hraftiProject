@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 
 
-public class InscriptionActivity extends AppCompatActivity  {
+public class RegisterActivity extends AppCompatActivity  {
 
     private EditText nomEdt ,emailEdt,passwordEdt,villeEdt,numtelEdt,descriptionEdt ,passwordEdtConf;
     private Button submitBtn ;
@@ -49,7 +49,7 @@ public class InscriptionActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inscription2);
+        setContentView(R.layout.activity_register);
         //insertion image
         profileImage =findViewById(R.id.profile);
 
@@ -71,7 +71,7 @@ public class InscriptionActivity extends AppCompatActivity  {
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-                if (parent.getItemAtPosition(position).equals("sélectionner métier")){
+                if (parent.getItemAtPosition(position).equals("Sélectionner un Métier")){
                     increment=1;
                 }else{
                     item=parent.getItemAtPosition(position).toString();
@@ -86,7 +86,7 @@ public class InscriptionActivity extends AppCompatActivity  {
         });
 
 
-        helper = new Helper(InscriptionActivity.this);
+        helper = new Helper(RegisterActivity.this);
         //insertion image
         //chose image from device
         profileImage.setOnClickListener(view -> choseImage());
@@ -183,8 +183,8 @@ public class InscriptionActivity extends AppCompatActivity  {
 
                 try{
                     helper.addNewProfessionnel( nom ,email,password,item,numtel,ville ,description ,imageToStore);
-                    Toast.makeText(InscriptionActivity.this, "Registration Successfully", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(InscriptionActivity.this,LoginActivity.class);
+                    Toast.makeText(RegisterActivity.this, "Registration Successfully", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
                     startActivity(i);
                 }catch (Exception E){
                      Toast.makeText(getApplicationContext(),"registration user failed ! " , Toast.LENGTH_LONG).show();
