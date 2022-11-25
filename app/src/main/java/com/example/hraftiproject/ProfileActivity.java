@@ -68,7 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
         Intent i = getIntent();
         email.setText(i.getStringExtra("useremail"));
         String userEmail = email.getText().toString();
-        System.out.println(userEmail);
+        System.out.println("email "+userEmail);
         user = helper.getUser(userEmail);
         nameC.setText(user.getName());
         name.setText(user.getName());
@@ -85,6 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
         phone.setText(String.valueOf(user.getPhone()));
         edit_phone.setText(String.valueOf(user.getPhone()));
         imageView.setImageBitmap(user.getImage());
+        imageToStore=user.getImage();
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
