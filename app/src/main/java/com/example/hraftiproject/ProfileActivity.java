@@ -1,11 +1,14 @@
 package com.example.hraftiproject;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,6 +17,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,23 +34,27 @@ public class ProfileActivity extends AppCompatActivity {
     EditText edit_nomC,edit_email,edit_ville,edit_description,edit_metier,edit_phone;
     Button btnSubmit,btnCancel;
     LoginActivity login=new LoginActivity();
-    ImageView imageView;
+    ImageView imageView,itm;
     Uri imagePath;
     Bitmap imageToStore;
     private static final int PICK_IMAGE_REQUEST=99;
 
+
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        user = new User();
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_profile);
+
         androidx.appcompat.app.ActionBar actionBar= getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         LayoutInflater inflater =(LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.logo_image,null);
         actionBar.setCustomView(view);
         helper = new Helper(getApplicationContext());
-        user = new User();
+
         nameC = findViewById(R.id.input_name);
         email=findViewById(R.id.input_email);
         ville=findViewById(R.id.input_ville);
@@ -83,6 +92,9 @@ public class ProfileActivity extends AppCompatActivity {
         edit_phone.setText(String.valueOf(user.getPhone()));
         imageView.setImageBitmap(user.getImage());
         imageToStore=user.getImage();
+
+
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (login.IsLoged() ) {
@@ -154,7 +166,26 @@ public class ProfileActivity extends AppCompatActivity {
                     btnSubmit.setVisibility(View.VISIBLE);
                     btnCancel.setVisibility(View.VISIBLE);
                 }
-            });}
+            });
+            }
+
+            }
+        else {
+
+            ImageView img = (ImageView)findViewById(R.id.profileImage);
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
+                 View dialog = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.dialog,null);
+
+                    itm = dialog.findViewById(R.id.img);
+                    itm.setImageBitmap(user.getImage());
+                    builder.setView(dialog);
+                    builder.setCancelable(true);
+                   builder.show();
+                }
+            });
             btnSubmit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -193,7 +224,14 @@ public class ProfileActivity extends AppCompatActivity {
 
                 }
             });
+
+
+
         }
+
+
+
+
 
     }
     public void close(){
@@ -258,4 +296,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         }
     }
+
+
 }
