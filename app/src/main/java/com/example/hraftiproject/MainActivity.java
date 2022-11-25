@@ -1,6 +1,7 @@
 package com.example.hraftiproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.IntentFilter;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -59,12 +61,12 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.idRC);
         Actualiser("");
 
+
         androidx.appcompat.app.ActionBar actionBar= getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         LayoutInflater inflater =(LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.logo_image,null);
         actionBar.setCustomView(view);
-
 
 
     }

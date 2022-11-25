@@ -256,7 +256,7 @@ public class Helper extends SQLiteOpenHelper {
 
     public ArrayList<JobModel> returnJob( String value){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursorJobs = db.rawQuery("SELECT * FROM " + TABLE_NAME + " where metier  like ?" , new String[]{"%"+value+"%"});
+        Cursor cursorJobs = db.rawQuery("SELECT * FROM " + TABLE_NAME + " where metier  or ville like ?" , new String[]{"%"+value+"%"});
         ArrayList<JobModel> jobs = new ArrayList<JobModel>();
 
         while (cursorJobs.moveToNext()){
