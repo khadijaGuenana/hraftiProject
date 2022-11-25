@@ -89,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
             m.setOptionalIconsVisible(true);
         }
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setQueryHint("Saisissez un metier ");
+        searchView.setQueryHint("Metier,Nom,Ville ");
         MenuItem i=menu.findItem(R.id.inscription);
         MenuItem i1=menu.findItem(R.id.login);
         if (login.IsLoged()){
