@@ -50,8 +50,6 @@ public class MyAdapter  extends RecyclerView.Adapter<HomeActivity.ViewHolder> {
         holder.number.setText(modal.getNumber());
         holder.city.setText(modal.getCity());
         holder.image.setImageBitmap(modal.getImage());
-
-
     }
 
     @Override
