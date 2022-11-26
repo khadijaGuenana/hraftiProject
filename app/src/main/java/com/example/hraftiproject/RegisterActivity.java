@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity  {
 
     String item ;
     private Helper helper;
-    String[] items = new String[]{ "sélectionner métier","Agriculteur","Boucher", "Boulanger", "Chauffeur","Cuisinier", "Femme de menage",
+    String[] items = new String[]{ "Sélectionner un métier","Agriculteur","Boucher", "Boulanger", "Chauffeur","Cuisinier", "Femme de menage",
             "Menuisier","Mécanicien","Jardinier",
             "Peintre", "Photographe",  "Plombier"
             ,"Serveur"};
@@ -174,7 +174,7 @@ public class RegisterActivity extends AppCompatActivity  {
                     Toast.makeText(this, "E-mail incorrect!", Toast.LENGTH_SHORT).show();
              }else if(increment ==1) {
 
-                Toast.makeText(getApplicationContext(), " sélectionner métier..", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
+                Toast.makeText(getApplicationContext(), " Sélectionner un métier..", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
             }else if(imageImport==0){
 
                 Toast.makeText(getApplicationContext(), " Importer une image..", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this

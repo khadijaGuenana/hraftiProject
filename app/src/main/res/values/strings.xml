@@ -11,7 +11,7 @@
     <string name="textpaswd">Mot de passe :</string>
     <string name="textconnect">Se connecter</string>
     <string name="s_inscrire">s\'inscrire.</string>
-    <string name="mot_de_passe_oublie">Mot de passe oublie?</string>
+    <string name="mot_de_passe_oublie">Mot de passe oublié?</string>
     <string name="entrer_votre_email">entrer votre email</string>
     <string name="entrer_le_nouveau_mot_de_passe">Entrer le nouveau mot de passe</string>
     <string name="re_enter_mot_de_passe">Re-entrer mot de passe</string>
