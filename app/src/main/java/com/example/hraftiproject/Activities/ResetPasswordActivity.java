@@ -1,4 +1,4 @@
-package com.example.hraftiproject;
+package com.example.hraftiproject.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.hraftiproject.R;
+import com.example.hraftiproject.Database.Helper;
 
 public class ResetPasswordActivity extends AppCompatActivity {
     TextView email;
@@ -46,7 +49,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 if (password.equals(rePassword)){
                     Boolean checkPasswordUpdate= database.updatePasswd(Email,password);
                     if (checkPasswordUpdate){
-                        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                         Toast.makeText(ResetPasswordActivity.this, "mot de passe modifier avec succes", Toast.LENGTH_SHORT).show();
                     }

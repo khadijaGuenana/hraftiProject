@@ -1,4 +1,4 @@
-package com.example.hraftiproject;
+package com.example.hraftiproject.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.hraftiproject.R;
+import com.example.hraftiproject.Database.Helper;
 
 public class ForgotPswdActivity extends AppCompatActivity {
     EditText EmailCheck;
@@ -38,7 +41,7 @@ public class ForgotPswdActivity extends AppCompatActivity {
                 String email = EmailCheck.getText().toString();
                 Boolean checkEmail= database.checkEmail(email);
                 if (checkEmail){
-                    Intent i = new Intent(getApplicationContext(),ResetPasswordActivity.class);
+                    Intent i = new Intent(getApplicationContext(), ResetPasswordActivity.class);
                     i.putExtra("email",email);
                     startActivity(i);
                 }

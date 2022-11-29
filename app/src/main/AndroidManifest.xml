@@ -15,7 +15,7 @@
         android:theme="@style/Theme.HraftiProject"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
+            android:name=".Activities.HomeActivity"
             android:exported="false"
             android:label=""
             android:screenOrientation="portrait"
@@ -25,8 +25,8 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegisterActivity"
-            android:parentActivityName=".HomeActivity"
+            android:name=".Activities.RegisterActivity"
+            android:parentActivityName=".Activities.HomeActivity"
             android:exported="false"
             android:label=""
             android:screenOrientation="portrait" >
@@ -35,7 +35,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activities.SplashActivity"
             android:screenOrientation="portrait"
             android:colorMode="hdr"
             android:exported="true"
@@ -53,10 +53,10 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".Activities.ProfileActivity"
             android:screenOrientation="portrait"
             android:exported="false"
-            android:parentActivityName=".HomeActivity"
+            android:parentActivityName=".Activities.HomeActivity"
             android:label="">
 
             <meta-data
@@ -64,18 +64,18 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ForgotPswdActivity"
+            android:name=".Activities.ForgotPswdActivity"
             android:screenOrientation="portrait"
             android:label=""
-            android:parentActivityName=".LoginActivity"
+            android:parentActivityName=".Activities.LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ResetPasswordActivity"
-            android:parentActivityName=".LoginActivity"
+            android:name=".Activities.ResetPasswordActivity"
+            android:parentActivityName=".Activities.LoginActivity"
             android:screenOrientation="portrait"
             android:label=""
             android:exported="false">
@@ -84,8 +84,8 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:parentActivityName=".HomeActivity"
+            android:name=".Activities.LoginActivity"
+            android:parentActivityName=".Activities.HomeActivity"
             android:screenOrientation="portrait"
             android:label=""
             android:exported="true">

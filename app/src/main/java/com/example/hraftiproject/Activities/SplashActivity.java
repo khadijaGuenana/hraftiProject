@@ -1,10 +1,12 @@
-package com.example.hraftiproject;
+package com.example.hraftiproject.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.hraftiproject.R;
 
 public class SplashActivity extends AppCompatActivity {
 

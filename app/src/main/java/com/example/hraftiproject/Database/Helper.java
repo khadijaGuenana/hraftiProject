@@ -1,4 +1,4 @@
-package com.example.hraftiproject;
+package com.example.hraftiproject.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import com.example.hraftiproject.Activities.HomeActivity;
+import com.example.hraftiproject.Model.JobModel;
+import com.example.hraftiproject.Activities.RegisterActivity;
+import com.example.hraftiproject.Model.User;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;

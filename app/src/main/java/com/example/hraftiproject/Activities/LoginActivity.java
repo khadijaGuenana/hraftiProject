@@ -1,4 +1,4 @@
-package com.example.hraftiproject;
+package com.example.hraftiproject.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.hraftiproject.R;
+import com.example.hraftiproject.Database.Helper;
 
 public class LoginActivity extends AppCompatActivity {
         EditText Email,motdepasse;
@@ -84,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         motdpOublie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),ForgotPswdActivity.class);
+                Intent i = new Intent(getApplicationContext(), ForgotPswdActivity.class);
                 startActivity(i);
             }
         });

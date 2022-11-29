@@ -1,4 +1,4 @@
-package com.example.hraftiproject;
+package com.example.hraftiproject.Adapter;
 
 
 import android.content.Context;
@@ -8,6 +8,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.hraftiproject.Activities.HomeActivity;
+import com.example.hraftiproject.R;
+import com.example.hraftiproject.Database.Helper;
+import com.example.hraftiproject.Model.JobModel;
 
 import java.util.ArrayList;
 

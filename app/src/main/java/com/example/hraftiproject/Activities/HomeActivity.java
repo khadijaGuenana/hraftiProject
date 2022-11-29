@@ -1,4 +1,4 @@
-package com.example.hraftiproject;
+package com.example.hraftiproject.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +23,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.hraftiproject.R;
+import com.example.hraftiproject.Adapter.MyAdapter;
+import com.example.hraftiproject.Database.Helper;
+import com.example.hraftiproject.Model.JobModel;
 
 import java.util.ArrayList;
 
