@@ -1,4 +1,4 @@
-package com.example.hraftiproject;
+package com.example.hraftiproject.Model;
 
 import android.graphics.Bitmap;
 

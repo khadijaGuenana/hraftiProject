@@ -1,4 +1,4 @@
-package com.example.hraftiproject;
+package com.example.hraftiproject.Activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.hraftiproject.R;
+import com.example.hraftiproject.Database.Helper;
 
 
 public class RegisterActivity extends AppCompatActivity  {
@@ -185,7 +187,7 @@ public class RegisterActivity extends AppCompatActivity  {
                 try{
                     helper.addNewProfessionnel( nom ,email,password,item,numtel,ville ,description ,imageToStore);
                     Toast.makeText(RegisterActivity.this, "Registration Successfully", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
+                    Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(i);
                 }catch (Exception E){
                      Toast.makeText(getApplicationContext(),"registration user failed ! " , Toast.LENGTH_LONG).show();
