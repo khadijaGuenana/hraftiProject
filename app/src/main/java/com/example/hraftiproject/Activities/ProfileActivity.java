@@ -184,7 +184,7 @@ public class ProfileActivity extends AppCompatActivity {
                     builder.setCancelable(true);
                    builder.show();
                 }
-            });
+            });}
             btnSubmit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -232,7 +232,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-    }
+
     public void close(){
         hideSoftKeyboard(this);
         btnSubmit.setVisibility(View.GONE);
