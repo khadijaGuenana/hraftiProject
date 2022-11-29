@@ -41,10 +41,10 @@ public class RegisterActivity extends AppCompatActivity  {
 
     String item ;
     private Helper helper;
-    String[] items = new String[]{ "Sélectionner un métier","Agriculteur","Boucher", "Boulanger", "Chauffeur","Cuisinier", "Femme de menage",
+    String[] items = new String[]{ "Sélectionner un métier","Agriculteur","Boucher", "Boulanger", "Chauffeur","Cuisinier","électricien","Femme de menage","Maçon",
             "Menuisier","Mécanicien","Jardinier",
             "Peintre", "Photographe",  "Plombier"
-            ,"Serveur"};
+            ,"Serveur" ,"Securité"};
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity  {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
                 increment=1;
             }
         });
@@ -172,10 +173,10 @@ public class RegisterActivity extends AppCompatActivity  {
               }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
 
                     Toast.makeText(this, "E-mail incorrect!", Toast.LENGTH_SHORT).show();
-             }else if(increment ==1) {
+              }else if(increment ==1) {
 
                 Toast.makeText(getApplicationContext(), " Sélectionner un métier..", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
-            }else if(imageImport==0){
+              }else if(imageImport==0){
 
                 Toast.makeText(getApplicationContext(), " Importer une image..", Toast.LENGTH_SHORT).show(); //InscriptionActivity.this
 
